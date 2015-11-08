@@ -29,7 +29,7 @@ public class Echo extends BasicAlgorithm{
 				}
 				informed=true;
 				activator=interf; //remember activator
-				markInterface=activator;
+				markInterface=interf; //highlight spanning tree
 			}			
 			count++;
 			if(count==checkInterfaces()){ //all neighbours informed
