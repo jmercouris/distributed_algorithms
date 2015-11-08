@@ -1,0 +1,6 @@
+Exercise 1.3 a)
+Flooding in a bidirectional ring sends n+2 messages more than broadcast in a unidirectional ring.
+Because the number of nodes and edges in a ring are equal, we have 4e-2n+2= 2n+2 messages compared to n in the broadcast case.
+
+Exercise 1.3 c)
+
