@@ -1,0 +1,35 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+\begin{center}
+\Large Assignment 1\\
+\large Distributed Algorithms
+\end{center}
+\begin{flushright}
+\begin{tabular}{ll}
+% 	Name				Matrikelnummer
+	Dan Drewes 		&  	\\ 
+	Manuela Hopp 	& 	325258 \\ 
+	John Mercouris 	&  	\\ 
+	Malte Siemers 	&  	\\ 
+\end{tabular} 
+\end{flushright}
+
+\subsection*{Exercise 1.1: Warming Up}
+\paragraph*{a)} % What is the difference between a distributed system and a parallel computer?
+\paragraph{b)} % Why do we use distributed systems although they are complicated?
+\paragraph{c)} % What are the differences between the synchronous model, the asynchronous model and the atom model?
+\subsection*{Exercise 1.2: Topologies}
+% Consider a hypercube with dimension d
+\paragraph{a)} % Given two arbitrary nodes u and v from the hypercube. How many shortest paths are there between u and v?
+If the distance between $u$ and $v$ is $\delta$, then there are $\delta!$ shortest paths between $u$ and $v$ as we can correct the bits that differ between $u$ and $v$ in an arbitrary order.
+\paragraph{b)} % How many different node pairs are there, that are connected with shortest path of length k?
+For each of the $2^d$ nodes there are $\binom{d}{k}$ nodes with distance $k$.
+Thus, there are $\frac{1}{2}\cdot2^d\cdot\binom{d}{k}=2^{d-1}\binom{d}{k}$ pairs of nodes that are connected with shortest path of length $k$.
+\paragraph{c)} % Given the broadcast algorithm from the lecture to produce spanning trees on the hypercube. How many different spanning trees could be generated from the same start node by varying the dimension used for sending?
+Each dimension must be used exactly once but the order is arbitrary. Therefore, on a $d$-dimensional hypercube, $d!$ different spanning trees could be created from one start node.
+\paragraph{d)} % Would it be possible to do multiple broadcasts in parallel with the previous algorithm from the same start node? i.e. in the unit time model there exist at most one message on an edge 
+\end{document}
