@@ -1,5 +1,5 @@
 import teachnet.algorithm.BasicAlgorithm;
-import java.awt.Color;
+
 
 
 public class Echo extends BasicAlgorithm{
