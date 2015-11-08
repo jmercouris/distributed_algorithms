@@ -1,7 +1,7 @@
 [graph.random]
 teachnet.util.RandomConnectedGraphGenerator
-n=java.lang.Integer:10
-e=java.lang.Integer:30
+n=java.lang.Integer:8
+e=java.lang.Integer:20
 
 [network]
 
