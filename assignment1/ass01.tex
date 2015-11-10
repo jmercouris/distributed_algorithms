@@ -10,11 +10,11 @@
 \end{center}
 \begin{flushright}
 \begin{tabular}{ll}
-% 	Name            Matrikelnummer
-	Dan Drewes      &  	\\ 
-	Manuela Hopp    & 	325258 \\ 
-	John Mercouris  &  	\\ 
-	Malte Siemers   &  	\\ 
+	\textbf{Group 11}\\
+	Dan Drewes       	\\ 
+	Manuela Hopp     \\ 
+	John Mercouris  \\
+	Malte Siemers   \\
 \end{tabular} 
 \end{flushright}
 
@@ -24,6 +24,7 @@ A distributed system is a system of independent processors that work toward a co
 \paragraph{b)} % Why do we use distributed systems although they are complicated?
 \paragraph{c)} % What are the differences between the synchronous model, the asynchronous model and the atom model?
 In a synchronous model, the length of actions and the maximum delay of messages is restricted and known. In an asynchronous model, actions and messages can take arbitrarily long or the limits are unknown. The atom model is a partially synchronized model where the delay of messages is unknown and the length of an action is assumed to be timeless.
+
 \subsection*{Exercise 1.2: Topologies}
 % Consider a hypercube with dimension d
 \paragraph{a)} % Given two arbitrary nodes u and v from the hypercube. How many shortest paths are there between u and v?
@@ -34,4 +35,12 @@ Thus, there are $\frac{1}{2}\cdot2^d\cdot\binom{d}{k}=2^{d-1}\binom{d}{k}$ pairs
 \paragraph{c)} % Given the broadcast algorithm from the lecture to produce spanning trees on the hypercube. How many different spanning trees could be generated from the same start node by varying the dimension used for sending?
 Each dimension must be used exactly once but the order is arbitrary. Therefore, on a $d$-dimensional hypercube, $d!$ different spanning trees could be created from one start node.
 \paragraph{d)} % Would it be possible to do multiple broadcasts in parallel with the previous algorithm from the same start node? i.e. in the unit time model there exist at most one message on an edge 
+
+\subsection*{Exercise 1.3: Distribution of Information}
+\paragraph{a)} Flooding in a bidirectional ring sends $n+2$ messages more than broadcast in a unidirectional ring. Since the number of nodes and edges in a ring a equal, we have $4e-2n+2=2n+2$ messages compared to $n$ in the broadcast case.
+
+\subsection*{Exercise 1.4: Election}
+\paragraph{b)} % There is a precondition for the algorithm of Chang and Roberts that all node IDs have to be unique (no duplicate IDs). Assume, we drop this precondition and allow multiple nodes to have the same ID.
+	\subparagraph{a)} % Does the algorithm still work properly? Please provide a reasonable answer.
+	\subparagraph{b)} % In which cases does the algorithm still deliver a proper result? Explain at least two cases.
 \end{document}
