@@ -1,9 +1,19 @@
 import teachnet.algorithm.BasicAlgorithm;
 
+/**
+* Group 11
+* Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
+* The class implements the Chang-Roberts algorithm
+*/
+
 public class ChangRoberts extends BasicAlgorithm {
 
   int Mp = 0;
   int id;
+  
+/**
+* initiates the algorithm by sending the node's own id to all its neighbors
+*/
 
   public void initiate(){
     Mp = id;
@@ -12,6 +22,9 @@ public class ChangRoberts extends BasicAlgorithm {
     }
   }
   
+/**
+* forwards messages when the id received is higher and declares the node master if it receives its own id
+*/
   public void receive(int interf, Object message){
     if (message.equals("I am the master")); // then we are done
     else {
@@ -21,11 +34,10 @@ public class ChangRoberts extends BasicAlgorithm {
         for (int i = 0; i < checkInterfaces(); i++){
           send(i, Mp);
         }
-      } else {
-        if (j == Mp){
-          for (int i = 0; i < checkInterfaces(); i++){ // got own id, declare master
-            send(i, "I am the master");
-          }
+      }
+      if (k == Mp){ // got own id, declare master
+        for (int i = 0; i < checkInterfaces(); i++){ 
+          send(i, "I am the master");
         }
       }
     }
