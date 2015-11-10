@@ -36,9 +36,10 @@ Thus, there are $\frac{1}{2}\cdot2^d\cdot\binom{d}{k}=2^{d-1}\binom{d}{k}$ pairs
 \paragraph{c)} % Given the broadcast algorithm from the lecture to produce spanning trees on the hypercube. How many different spanning trees could be generated from the same start node by varying the dimension used for sending?
 Each dimension must be used exactly once but the order is arbitrary. Therefore, on a $d$-dimensional hypercube, $d!$ different spanning trees could be created from one start node.
 \paragraph{d)} % Would it be possible to do multiple broadcasts in parallel with the previous algorithm from the same start node? i.e. in the unit time model there exist at most one message on an edge 
+Yes, it would be possible.
 
 \subsection*{Exercise 1.3: Distribution of Information}
-\paragraph{a)} Flooding in a bidirectional ring sends $n+2$ messages more than broadcast in a unidirectional ring. Since the number of nodes and edges in a ring a equal, we have $4e-2n+2=2n+2$ messages compared to $n$ in the broadcast case.
+\paragraph{a)} Flooding in a bidirectional ring sends $n+2$ messages more than broadcast in a unidirectional ring. Since the number of nodes and edges in a ring are equal, we have $4e-2n+2=2n+2$ messages compared to $n$ in the broadcast case.
 
 \subsection*{Exercise 1.4: Election}
 \paragraph{b)} % There is a precondition for the algorithm of Chang and Roberts that all node IDs have to be unique (no duplicate IDs). Assume, we drop this precondition and allow multiple nodes to have the same ID.
