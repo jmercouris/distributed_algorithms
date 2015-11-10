@@ -6,7 +6,7 @@ import teachnet.algorithm.BasicAlgorithm;
 * The class implements the Chang-Roberts algorithm
 */
 
-public class ChangRoberts extends BasicAlgorithm {
+public class Election extends BasicAlgorithm {
 
   int Mp = 0;
   int id;
