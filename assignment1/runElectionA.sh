@@ -3,5 +3,5 @@ source teachnet.path
 
 java -jar $tn_path \
 --cp . \
---config Election-config.txt \
+--config Election-config-a.txt \
 --compile
