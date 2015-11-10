@@ -58,6 +58,9 @@ In a binary X-tree with heigth $h$ the improved Echo algorithm tells every child
 
 \subsection*{Exercise 1.4: Election}
 \paragraph{b)} % There is a precondition for the algorithm of Chang and Roberts that all node IDs have to be unique (no duplicate IDs). Assume, we drop this precondition and allow multiple nodes to have the same ID.
-\subparagraph{a)} % Does the algorithm still work properly? Please provide a reasonable answer.
-\subparagraph{b)} % In which cases does the algorithm still deliver a proper result? Explain at least two cases.
+	\subparagraph{a)} % Does the algorithm still work properly? Please provide a reasonable answer.
+	In the general case, where more than one process emmits an election message at the same time, the algorithm could lead to the result of multiple leaders. This is due to the fact, that an individual process thinks it has won, when it receives a election message with its own id.
+	\subparagraph{b)} % In which cases does the algorithm still deliver a proper result? Explain at least two cases.
+	In the case, that only one election message is sent, there will be only one leader. This can also be a process with an id lower than other ids (assuming the elected message can pass around the ring without leading to another process with the same id thinking its elected).\\
+	And in the case of the highest id being unique and all processes, that are sending out election messages with an id not beeing unique, are seperated from processes with their id by a process with a higher id, the election would lead to one leader with the highest id.
 \end{document}
