@@ -12,7 +12,7 @@
 \begin{tabular}{ll}
 	\textbf{Group 11} \\
 	Dan Drewes     	  \\ 
-	Manuela Hop       \\ 
+	Manuela Hopp       \\ 
 	John Mercouris    \\
 	Malte Siemers     \\
 \end{tabular} 
@@ -41,13 +41,13 @@ Yes, it would be possible.
 \subsection*{Exercise 1.3: Distribution of Information}
 \paragraph{a)} Flooding in a bidirectional ring sends $n+2$ messages more than broadcast in a unidirectional ring. Since the number of nodes and edges in a ring are equal, we have $4e-2n+2=2n+2$ messages compared to $n$ in the broadcast case.
 \paragraph{c)}
-\subparagraph{(a)\\}
+\subparagraph{a)\\}
 \begingroup
 \leftskip1em
-	In a bidirectional ring there is no message reduction through the improvement with taboo sets. Every set of taboo nodes that is sent, only contains nodes that are behind the activator from the perspective of the reciever. So the recieving node wouldn`t have sent any Explorers into this direction anyway.
+	In a bidirectional ring there is no message reduction through the improvement with taboo sets. Every set of taboo nodes that is sent, only contains nodes that are behind the activator from the perspective of the receiver. So the receiving node wouldn't have sent any explorers into this direction anyway.
 \par
 \endgroup
-\subparagraph{(b)\\}
+\subparagraph{b)\\}
 \begingroup
 \leftskip1em
 In a binary X-tree with heigth $h$ the improved Echo algorithm tells every child node to send no message to its sibling (the one node with the same parent node). Therefore the amount of reduced messages is equal to the number of edges between siblings in such a tree, which is half the number of nodes minus one: $\dfrac{2^{h+1}-1-1}{2}=2^{h}-1$. If $h=0$ there are obviously no messages send.
