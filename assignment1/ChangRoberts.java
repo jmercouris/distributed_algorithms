@@ -12,9 +12,15 @@ public class ChangRoberts extends BasicAlgorithm {
   int id;
   
 /**
+* setup function
+*/
+  public void setup(java.util.Map<String, Object> config){
+    int id = (Integer) config.get("node.id");
+  }
+  
+/**
 * initiates the algorithm by sending the node's own id to all its neighbors
 */
-
   public void initiate(){
     Mp = id;
     for (int i = 0; i < checkInterfaces(); i++) {
