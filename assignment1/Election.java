@@ -3,7 +3,7 @@ import teachnet.algorithm.BasicAlgorithm;
 /**
 * Group 11
 * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
-* The class implements the Chang-Roberts algorithm
+* This class implements the Chang-Roberts algorithm
 */
 
 public class Election extends BasicAlgorithm {
