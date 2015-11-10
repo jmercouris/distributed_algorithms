@@ -1,7 +1,11 @@
-[graph.random]
-teachnet.util.RandomConnectedGraphGenerator
-n=java.lang.Integer:8
-e=java.lang.Integer:20
+[graph]
+
+4
+
+0-1
+1-2
+2-3
+3-0
 
 [network]
 
