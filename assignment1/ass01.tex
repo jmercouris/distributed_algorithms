@@ -5,17 +5,17 @@
 \usepackage{amssymb}
 \begin{document}
 \begin{center}
-\Large Assignment 1\\
-\large Distributed Algorithms
+  \Large Assignment 1\\
+  \large Distributed Algorithms
 \end{center}
 \begin{flushright}
-\begin{tabular}{ll}
-	\textbf{Group 11} \\
-	Dan Drewes     	  \\ 
-	Manuela Hopp       \\ 
-	John Mercouris    \\
-	Malte Siemers     \\
-\end{tabular} 
+  \begin{tabular}{ll}
+    \textbf{Group 11} \\
+    Dan Drewes     	  \\ 
+    Manuela Hopp       \\ 
+    John Mercouris    \\
+    Malte Siemers     \\
+  \end{tabular} 
 \end{flushright}
 
 \subsection*{Exercise 1.1: Warming Up}
@@ -41,22 +41,26 @@ Yes, it would be possible.
 \subsection*{Exercise 1.3: Distribution of Information}
 \paragraph{a)} Flooding in a bidirectional ring sends $n+2$ messages more than broadcast in a unidirectional ring. Since the number of nodes and edges in a ring are equal, we have $4e-2n+2=2n+2$ messages compared to $n$ in the broadcast case.
 \paragraph{c)}
-\subparagraph{a)\\}
+
+\subparagraph{a)}
 \begingroup
 \leftskip1em
-	In a bidirectional ring there is no message reduction through the improvement with taboo sets. Every set of taboo nodes that is sent, only contains nodes that are behind the activator from the perspective of the receiver. So the receiving node wouldn't have sent any explorers into this direction anyway.
+In a bidirectional ring there is no message reduction through the improvement with taboo sets. Every set of taboo nodes that is sent, only contains nodes that are behind the activator from the perspective of the reciever. So the recieving node wouldn`t have sent any Explorers into this direction anyway.
 \par
 \endgroup
-\subparagraph{b)\\}
+\subparagraph{b)}
+
 \begingroup
 \leftskip1em
 In a binary X-tree with heigth $h$ the improved Echo algorithm tells every child node to send no message to its sibling (the one node with the same parent node). Therefore the amount of reduced messages is equal to the number of edges between siblings in such a tree, which is half the number of nodes minus one: $\dfrac{2^{h+1}-1-1}{2}=2^{h}-1$. If $h=0$ there are obviously no messages send.
 \par
 \endgroup
- 
 
 \subsection*{Exercise 1.4: Election}
 \paragraph{b)} % There is a precondition for the algorithm of Chang and Roberts that all node IDs have to be unique (no duplicate IDs). Assume, we drop this precondition and allow multiple nodes to have the same ID.
 	\subparagraph{a)} % Does the algorithm still work properly? Please provide a reasonable answer.
+	In the general case, where more than one process emmits an election message at the same time, the algorithm could lead to the result of multiple leaders. This is due to the fact, that an individual process thinks it has won, when it receives a election message with its own id.
 	\subparagraph{b)} % In which cases does the algorithm still deliver a proper result? Explain at least two cases.
+	In the case that only one election message is sent, there will be only one leader. This can also be a process with an id lower than other ids (assuming the elected message can pass around the ring without leading to another process with the same id thinking it's elected).\\
+	There is also the case of the highest id being unique and all processes that are sending out election messages with an id not beeing unique, are seperated from processes with their id by a process with a higher id- then the election would lead to one leader with the highest id.
 \end{document}
