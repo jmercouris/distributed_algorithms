@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{graphicx}
 \begin{document}
 \begin{center}
   \Large Assignment 2\\
@@ -30,7 +31,19 @@ Worst case topology:\newline Now we have $n=2^k+1$ nodes. Hence there are $1+\lo
 
 \subsection*{Exercise 2.2: Termination}
 \paragraph*{a)} % The algorithm for distributed termination detection presented in the paper R.K. Arora, S.P. Rana and M.N. Gupta.: ”Distributed termination detection algorithm for distributed computations” is wrong. Provide a counterexample and mention the mistake in the algorithm’s proof of correctness provided in the paper. Hint: The paper can be accessed from http://dx.doi.org/10.1016/0020-0190(86)90072-4
-\paragraph{b)} % Consider the following algorithm for (distributed) termination detection that is based on the atom model: A global unique ID is assigned to each message. A control wave keeps all messages that have been sent and received in mind. For this it uses two variables: S and R. After the control wave has terminated S contains all IDs of sent messages while R keeps all IDs of received messages. The termination detection algorithm decides that the basic algorithm has terminated if both sets are equal: S = R. Does this algorithm work properly? Give a proof for your answer. Hint: If a process receives a message that is part of the basic algorithm, it immediately gets active and reacts accordingly, i.e., does the intended action. If a process (of the basic algorithm) receives a message that is part of the control wave, no action for the basic algorithm is taken. The algorithms are isolated from each other and there is no interference.
+\begin{figure}[h]
+\centering
+ \includegraphics[width=0.6\textwidth]{2-2.png}
+\end{figure}
+In the figure above an example message sequence is pictured, that would lead to a false termination detection. Its valid for 4
+and more nodes. P1 initiates a probe message (PM) after P2 and P4 went idle and informed P1 about that. Also, P3 sends a
+basic communication message to P4 that will set it to active and afterwards goes idle, informing its neighbors about it (1.). As
+long as P2 is informed early enough, it will forward the PM. This sequence can be repeated until P1 receives its own PM and starts
+the termination phase with P2 still being active (2. - 4.). Active nodes can 'travel' in front of a PM in this manner and a false
+termination is detected. \\
+The error in the proof of correctnes is therefore in the last part, where they assume that a process that communicates with
+another one that already forwarded a PM must purge this PM later. But as discribed above, thats not the case.
+\paragraph{b)}
 
 
 \end{document}
