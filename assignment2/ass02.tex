@@ -36,14 +36,17 @@ Worst case topology:\newline Now we have $n=2^k+1$ nodes. Hence there are $1+\lo
  \includegraphics[width=0.6\textwidth]{2-2.png}
 \end{figure}
 In the figure above an example message sequence is pictured, that would lead to a false termination detection. Its valid for 4
-and more nodes. P1 initiates a probe message (PM) after P2 and P4 went idle and informed P1 about that. Also, P3 sends a
-basic communication message to P4 that will set it to active and afterwards goes idle, informing its neighbors about it (1.). As
-long as P2 is informed early enough, it will forward the PM. This sequence can be repeated until P1 receives its own PM and starts
-the termination phase with P2 still being active (2. - 4.). Active nodes can 'travel' in front of a PM in this manner and a false
-termination is detected. \\
+and more nodes. P1 initiates a probe message (PM) after P2 and P4 went idle and informed P1 about that with an I-Am-Passive
+message (IAP). Also, P3 sends a basic communication message (CM) to P4 that will set it to active and afterwards goes idle,
+informing its neighbors about it (1.). As long as P2 is informed early enough, it will forward the PM. This sequence can be
+repeated until P1 receives its own PM and starts the termination phase with P2 still being active (2. - 4.). Active nodes can
+'travel' in front of a PM in this manner and a false termination is detected. \\
 The error in the proof of correctnes is therefore in the last part, where they assume that a process that communicates with
 another one that already forwarded a PM must purge this PM later. But as discribed above, thats not the case.
 \paragraph{b)}
-
-
+In the atom model actions on nodes are finished instantaneously. So the only time, that is consumed by an algorithm in the atom
+model is the time, messages take between nodes. If a message was sent and recieced, it means that the action related to this
+message is already finished. This also means, that if there is no messages on the way between nodes, the algorithm must have
+terminated. With all messages having globally unique ids a control wave returning the same sets of sent (S) and received (R)
+message ids proves, that no messages are on their way and so the algorithm is terminated.
 \end{document}
