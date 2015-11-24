@@ -13,9 +13,12 @@ public class ThreePhaseElection extends BasicAlgorithm {
     Random r = new Random();
 
     /* Phase Identifiers */
-    int PHASE_EXPLOSION   = 0;
-    int PHASE_CONTRACTION = 1;
-    int PHASE_INFORMATION = 2;
+    static int PHASE_EXPLOSION   = 0;
+    static int PHASE_CONTRACTION = 1;
+    static int PHASE_INFORMATION = 2;
+
+    // Indicate Phase
+    static int phase = PHASE_EXPLOSION;
 	
     // Node Specific Variables
     boolean initialReceipt = false;
@@ -62,8 +65,9 @@ public class ThreePhaseElection extends BasicAlgorithm {
 
 	if (message.maximumValue) {
 	    if (maximumRecieved == false) {
-		sendToAll(new NetworkMessage(message.value), sender);
-		maximumRecieved = true;
+	    	sendToAll(new NetworkMessage(message.value), sender);
+	    	maximumRecieved = true;
+		System.out.println("MAXIMUM RECIEVED:" + message.value);
 	    }
 	} 
 	else {
@@ -76,19 +80,20 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	    }
 	    // Final Step
 	    if (maximumSent == true) {
+		phase = PHASE_CONTRACTION;
 		System.out.println("ROOT MAXIMUM RECEIVED:" + maximumValue);
 		maximumRecieved = true;
-		sendToAll(new NetworkMessage(nodeValue, true));
+		sendToAll(new NetworkMessage(maximumValue, true), sender);
 	    }
 	    // Check to see if all child messages have been received and NOT a leaf
 	    // Send to parent Interface
 	    if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
-		System.out.println("SENDING MAXIMUM TO PARENT:" + maximumValue)
+		System.out.println("SENDING MAXIMUM TO PARENT:" + maximumValue);
 		sendToAll(new NetworkMessage(maximumValue), messageReceivedFromInterface);
 		maximumSent = true;
 	    }
 	    // If Node is a Leaf
-	    if (checkInterfaces() == 1) {
+	    if (checkInterfaces() == 1 && phase == PHASE_EXPLOSION) {
 		System.out.println("LEAF RETURNING:" + nodeValue);
 		sendToAll(new NetworkMessage(nodeValue));
 	    }
