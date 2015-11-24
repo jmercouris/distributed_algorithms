@@ -26,6 +26,7 @@ public class ThreePhaseElection extends BasicAlgorithm {
     int nodeValue;
     int maximumValue;
     boolean maximumSent = false;
+    boolean maximumRecieved = false;
 
  
     /**
@@ -51,53 +52,60 @@ public class ThreePhaseElection extends BasicAlgorithm {
     /**
      * sends out explorer messages to all neighbors if not yet informed
      */
-    public void receive(int inputInterface, Object message) {
-
-	// Check to see if received message has greater value than our own maximum
-	NetworkMessage inputMessage = (NetworkMessage) message;
-
+    public void receive(int sender, Object inputMessage) {
+	// Cast recieved Message object
+	NetworkMessage message = (NetworkMessage) inputMessage;
 	// Keep Track of Largest value seen
-	if (inputMessage.value > maximumValue) {
-	    maximumValue = inputMessage.value;
-	}
-	
-	// Flag Indicating message value has been set
-	if (inputMessage.value != -1) {
-	    messagesReceived++;
-	    // Mark Interface that sent it
-	    messageReceivedFromInterface[inputInterface] = true;
+	if (message.value > maximumValue) {
+	    maximumValue = message.value;
 	}
 
-	// Final Step
-	if (maximumSent == true) {
-	    System.out.println("Maximum value is:" + maximumValue);
-	}
-
-	// Check to see if all child messages have been received and NOT a leaf
-	if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
-	    // Send to Parent Interface
-	    sendToAll(new NetworkMessage(maximumValue), messageReceivedFromInterface);
-	    maximumSent = true;
-	}
-
-	// If Node is a Leaf
-	if (checkInterfaces() == 1) {
-	    sendToAll(new NetworkMessage(nodeValue));
-	}
-	
-	// If Node is NOT a leaf
-	if (checkInterfaces() > 1) {
-	    // If INITIAL Receipt
-	    if (!initialReceipt) {
-		initialReceipt = true;
-		sendToAll(new NetworkMessage(), inputInterface);
+	if (message.maximumValue) {
+	    if (maximumRecieved == false) {
+		sendToAll(new NetworkMessage(message.value), sender);
+		maximumRecieved = true;
+	    }
+	} 
+	else {
+	    
+	    // Flag Indicating message value has been set
+	    if (message.value != -1) {
+		messagesReceived++;
+		// Mark Interface that sent it
+		messageReceivedFromInterface[sender] = true;
+	    }
+	    // Final Step
+	    if (maximumSent == true) {
+		System.out.println("ROOT MAXIMUM RECEIVED:" + maximumValue);
+		maximumRecieved = true;
+		sendToAll(new NetworkMessage(nodeValue, true));
+	    }
+	    // Check to see if all child messages have been received and NOT a leaf
+	    // Send to parent Interface
+	    if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
+		System.out.println("SENDING MAXIMUM TO PARENT:" + maximumValue)
+		sendToAll(new NetworkMessage(maximumValue), messageReceivedFromInterface);
+		maximumSent = true;
+	    }
+	    // If Node is a Leaf
+	    if (checkInterfaces() == 1) {
+		System.out.println("LEAF RETURNING:" + nodeValue);
+		sendToAll(new NetworkMessage(nodeValue));
+	    }
+	    // If Node is NOT a leaf
+	    if (checkInterfaces() > 1) {
+		// If INITIAL Receipt
+		if (!initialReceipt) {
+		    System.out.println("EXPLORATORY MESSAGE");
+		    initialReceipt = true;
+		    sendToAll(new NetworkMessage(), sender);
+		}
 	    }
 	}
     }
 
-
     ////////////////////////////////////////////////////////////////////////////////
-    // Helper Method to send to all Connecting Nodes
+    // Helper Methods to send to all Connecting Nodes
     ////////////////////////////////////////////////////////////////////////////////
     public void sendToAll(Object message){
 	for (int i = 0; i < checkInterfaces(); i++) {
