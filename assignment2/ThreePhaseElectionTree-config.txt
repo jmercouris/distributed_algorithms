@@ -30,5 +30,5 @@ ThreePhaseElection
 0.node.id=java.lang.String:$node.id
 
 [inits]
-
 0,0,0.0
+1,0,0.0
