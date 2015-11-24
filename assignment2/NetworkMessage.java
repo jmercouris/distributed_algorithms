@@ -1,0 +1,15 @@
+
+////////////////////////////////////////////////////////////////////////////////
+// Network Message Class
+////////////////////////////////////////////////////////////////////////////////
+public class NetworkMessage {
+    String stringMessage = "";
+    int value = 0;
+
+    public NetworkMessage() {
+
+    }
+    public NetworkMessage(int inputValue) {
+	value = inputValue;
+    }
+}
