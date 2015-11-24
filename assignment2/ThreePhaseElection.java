@@ -8,13 +8,17 @@ import teachnet.algorithm.BasicAlgorithm;
 public class ThreePhaseElection extends BasicAlgorithm {
 
     String caption;
+    
+    /* Phase Identifiers */
+    int PHASE_EXPLOSION   = 0;
+    int PHASE_CONTRACTION = 1;
+    int PHASE_INFORMATION = 2;
+	
     boolean informed = false;
     boolean initiator = false;
+
     int id;
-    int activator;
-    int value;
-    int count = 0;
-    int markInterface =-1;
+    int phase = PHASE_EXPLOSION;
 
     /**
      * setup function
@@ -32,31 +36,24 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	for (int i = 0; i < checkInterfaces(); i++) {
 	    send(i, "Explorer");
 	}
-	informed=true;
-	initiator=true;
     }
 
     /**
      * sends out explorer messages to all neighbors if not yet informed
-     * sends echo to activator if all neighbors are informed
      */
     public void receive(int interf, Object message){
-	if(!informed){
-	    for (int i = 0; i < checkInterfaces(); i++) { //flood
-		if(i != interf){
-		    send(i, "Explorer");
-		}
-	    }
-	    informed = true;
-	    activator = interf; // remember activator
-	    markInterface = interf; // highlight spanning tree
+
+	// If Node is a Leaf
+	if (checkInterfaces() == 1) {
+	    send(0, ""+id);
+	    System.out.println("LEAF");
 	}
-	count++;
-	if(count == checkInterfaces()){ //all neighbours informed
-	    if(!initiator){
-		send(activator,"Echo");
-	    }
-	    //no explicit exit possible in teachnet
+
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    send(i, "Explorer");
 	}
+	
+
     }
 }
+

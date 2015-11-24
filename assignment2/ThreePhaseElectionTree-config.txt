@@ -13,7 +13,7 @@ h=java.lang.Integer:3
 # minimum number of children per node (> 0)
 min=java.lang.Integer:2
 # maximum number of children per node (>= min)
-max=java.lang.Integer:5
+max=java.lang.Integer:3
 
 [network]
 
