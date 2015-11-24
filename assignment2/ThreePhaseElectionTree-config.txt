@@ -1,0 +1,34 @@
+[graph.random]
+
+# name of graph generator class
+
+teachnet.util.RandomTreeGraphGenerator
+
+# generator parameters in the form <name>=<class name>:<value>
+# supported classes are: java.lang.String, java.lang.Long, 
+#   java.lang.Integer, java.lang.Float, java.lang.Double
+
+# height of tree (1+)
+h=java.lang.Integer:3
+# minimum number of children per node (> 0)
+min=java.lang.Integer:3
+# maximum number of children per node (>= min)
+max=java.lang.Integer:5
+
+[network]
+
+teachnet.network.LinearDelayNetwork
+
+delay.min=java.lang.Double:1.0
+delay.max=java.lang.Double:2.0
+
+[stack.algorithms]
+
+Election
+
+[stack.configs]
+0.node.id=java.lang.String:$node.id
+
+[inits]
+
+0,0,0.0

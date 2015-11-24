@@ -1,0 +1,31 @@
+[graph.random]
+
+# name of graph generator class
+
+teachnet.util.RandomRingGenerator
+
+# generator parameters in the form <name>=<class name>:<value>
+# supported classes are: java.lang.String, java.lang.Long, 
+#   java.lang.Integer, java.lang.Float, java.lang.Double
+
+# number of nodes in graph
+n=java.lang.Integer:10
+
+
+[network]
+
+teachnet.network.LinearDelayNetwork
+
+delay.min=java.lang.Double:1.0
+delay.max=java.lang.Double:2.0
+
+[stack.algorithms]
+
+Election
+
+[stack.configs]
+0.node.id=java.lang.String:$node.id
+
+[inits]
+
+0,0,0.0
