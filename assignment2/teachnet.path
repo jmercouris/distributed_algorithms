@@ -1,2 +1,3 @@
 # please provide your path to teachnet here (absolute or relative)
-tn_path=../../teachnet.jar
+tn_path=../../teachnet/teachnet.jar
+
