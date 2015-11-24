@@ -11,7 +11,7 @@ teachnet.util.RandomTreeGraphGenerator
 # height of tree (1+)
 h=java.lang.Integer:3
 # minimum number of children per node (> 0)
-min=java.lang.Integer:3
+min=java.lang.Integer:2
 # maximum number of children per node (>= min)
 max=java.lang.Integer:5
 
