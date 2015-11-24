@@ -1,5 +1,6 @@
 import teachnet.algorithm.BasicAlgorithm;
 import java.util.Random;
+import java.util.LinkedList;
 
 /**
  * Group 11
@@ -18,11 +19,13 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	
     // Node Specific Variables
     boolean initialReceipt = false;
+    boolean[] messageReceivedFromInterface;
     int messagesReceived;
     String caption;
     int nodeID;
     int nodeValue;
     int maximumValue;
+
  
     /**
      * setup function
@@ -32,6 +35,7 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	caption = "" + nodeID;
 	nodeValue = r.nextInt(100);
 	maximumValue = nodeValue;
+	messageReceivedFromInterface = new boolean[checkInterfaces()];
     }
 
     /**
@@ -53,11 +57,15 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	// Flag Indicating message value has been set
 	if (inputMessage.value != -1) {
 	    messagesReceived++;
+	    // Mark Interface that sent it
+	    messageReceivedFromInterface[inputInterface] = true;
 	}
 
 	// Check to see if all child messages have been received and NOT a leaf
 	if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
 	    System.out.println("I should forward things now");
+	    // Send to Parent Interface
+	    sendToAll(new NetworkMessage(maximumValue), messageReceivedFromInterface);
 	}
 
 	// Keep Track of Largest value seen
@@ -97,6 +105,13 @@ public class ThreePhaseElection extends BasicAlgorithm {
     public void sendToAll(Object message, int exceptInterface){
 	for (int i = 0; i < checkInterfaces(); i++) {
 	    if (i != exceptInterface) {
+		send(i, message);
+	    }
+	}
+    }
+    public void sendToAll(Object message, boolean[] exceptInterfaces){
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    if (!exceptInterfaces[i]) {
 		send(i, message);
 	    }
 	}
