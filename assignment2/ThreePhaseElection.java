@@ -18,10 +18,11 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	
     // Node Specific Variables
     boolean initialReceipt = false;
+    int messagesReceived;
+    String caption;
     int nodeID;
     int nodeValue;
     int maximumValue;
-    String caption;
  
     /**
      * setup function
@@ -48,6 +49,18 @@ public class ThreePhaseElection extends BasicAlgorithm {
 
 	// Check to see if received message has greater value than our own maximum
 	NetworkMessage inputMessage = (NetworkMessage) message;
+	
+	// Flag Indicating message value has been set
+	if (inputMessage.value != -1) {
+	    messagesReceived++;
+	}
+
+	// Check to see if all child messages have been received and NOT a leaf
+	if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
+	    System.out.println("I should forward things now");
+	}
+
+	// Keep Track of Largest value seen
 	if (inputMessage.value > maximumValue) {
 	    maximumValue = inputMessage.value;
 	}

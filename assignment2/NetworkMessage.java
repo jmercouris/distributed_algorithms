@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 public class NetworkMessage {
     String stringMessage = "";
-    int value = 0;
+    int value = -1;
 
     public NetworkMessage() {
 
