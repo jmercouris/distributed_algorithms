@@ -25,6 +25,7 @@ public class ThreePhaseElection extends BasicAlgorithm {
     int nodeID;
     int nodeValue;
     int maximumValue;
+    boolean maximumSent = false;
 
  
     /**
@@ -44,6 +45,7 @@ public class ThreePhaseElection extends BasicAlgorithm {
      */
     public void initiate(){
 	sendToAll(new NetworkMessage());
+	initialReceipt = true;
     }
 
     /**
@@ -53,6 +55,11 @@ public class ThreePhaseElection extends BasicAlgorithm {
 
 	// Check to see if received message has greater value than our own maximum
 	NetworkMessage inputMessage = (NetworkMessage) message;
+
+	// Keep Track of Largest value seen
+	if (inputMessage.value > maximumValue) {
+	    maximumValue = inputMessage.value;
+	}
 	
 	// Flag Indicating message value has been set
 	if (inputMessage.value != -1) {
@@ -61,16 +68,16 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	    messageReceivedFromInterface[inputInterface] = true;
 	}
 
-	// Check to see if all child messages have been received and NOT a leaf
-	if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
-	    System.out.println("I should forward things now");
-	    // Send to Parent Interface
-	    sendToAll(new NetworkMessage(maximumValue), messageReceivedFromInterface);
+	// Final Step
+	if (maximumSent == true) {
+	    System.out.println("Maximum value is:" + maximumValue);
 	}
 
-	// Keep Track of Largest value seen
-	if (inputMessage.value > maximumValue) {
-	    maximumValue = inputMessage.value;
+	// Check to see if all child messages have been received and NOT a leaf
+	if (messagesReceived == checkInterfaces() - 1 && checkInterfaces() != 1) {
+	    // Send to Parent Interface
+	    sendToAll(new NetworkMessage(maximumValue), messageReceivedFromInterface);
+	    maximumSent = true;
 	}
 
 	// If Node is a Leaf
@@ -84,11 +91,6 @@ public class ThreePhaseElection extends BasicAlgorithm {
 	    if (!initialReceipt) {
 		initialReceipt = true;
 		sendToAll(new NetworkMessage(), inputInterface);
-	    }
-	    
-	    // If NOT INITIAL Receipt
-	    if (initialReceipt) {
-		//sendToAll("" + maximumValue);
 	    }
 	}
     }
