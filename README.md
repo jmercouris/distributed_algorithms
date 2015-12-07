@@ -1,22 +1,16 @@
-# distributed_algorithms
-
+# Distributed Algorithms
 * Assignment responses including .tex and .pdf file are located in assignment0X/Document
 * Please set your teachnet.path prior to attempting to use any of the shell scripts (e.g. runEcho.sh).
 
-HOW TO PREPARE YOUR SUBMISSION:
+## How to prepare your submission:
 ===============================
-
 a) Implement the given exercises
 b) Make sure your java-files are compilable
 c) Make sure you have the correct configurations
 d) Make sure your run scripts are working
 e) Properly structure your submission:
 
-for example:
-
-OPTION_1:
-
-# Template Layout
+## Template Layout
 + teachnet.path
   + flooding
     + run.sh
@@ -29,7 +23,6 @@ OPTION_1:
 	+ Echo.java
 	+ *.java
 
-
 f) Keep naming conventions in mind:
 Either use "run.sh" or "runXXX.sh"
 
@@ -40,16 +33,14 @@ are not working I consider your submission
 as not working!
 
 
-WHAT SHOULD BE PART OF THE SUBMISSION
+## What should be part of the submission
 =====================================
-
 a) the run script (run.sh)
 b) the configuration file (myconfig.txt)
 c) the teachnet path file (teachnet.path)
 d) your source code files (*.java)
 
 
-WHAT SHOULD NOT(!) BE PART OF THE SUBMISSION
+## What should not be part of the submission
 ============================================
-
 a) the entire teachnet (teachnet.jar)
