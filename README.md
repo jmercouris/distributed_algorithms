@@ -5,9 +5,13 @@
 ## How to prepare your submission:
 
 a) Implement the given exercises
+
 b) Make sure your java-files are compilable
+
 c) Make sure you have the correct configurations
+
 d) Make sure your run scripts are working
+
 e) Properly structure your submission:
 
 ## Template Layout
