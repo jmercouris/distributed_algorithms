@@ -5,7 +5,7 @@ import teachnet.algorithm.BasicAlgorithm;
 * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
 * This class implements the Echo algorithm
 */
-public class WeightedReferenceCounting extends BasicAlgorithm{
+public class TokenRingSolution extends BasicAlgorithm{
 
   boolean informed = false;
   boolean initiator = false;
