@@ -5,34 +5,33 @@
 \usepackage{amssymb}
 \begin{document}
 \begin{center}
-  \Large Assignment 1\\
+  \Large Assignment 3\\
   \large Distributed Algorithms
 \end{center}
 \begin{flushright}
   \begin{tabular}{ll}
     \textbf{Group 11} \\
-    Dan Drewes     	  \\ 
-    Manuela Hopp       \\ 
+    Dan Drewes        \\ 
+    Manuela Hopp      \\ 
     John Mercouris    \\
     Malte Siemers     \\
   \end{tabular} 
 \end{flushright}
 
 \section*{Exercise 3.1: Distributed Garbage Collection}
-  \subsection*{a)} % Automaticgarbagecollectionsimplifiestheprogrammingofdistributedapplications.Investigatehow the distributed garbage collection is achieved in CORBA, Microsoft DCOM, Java RMI, and .Net Remoting and make a short comparision between these approaches.
+  \subsection*{a)} % Automatic garbage collection simplifies the programming of distributed applications.Investigate how the distributed garbage collection is achieved in CORBA, Microsoft DCOM, Java RMI, and .Net Remoting and make a short comparision between these approaches
   \subsection*{b)} % The Weighted Reference Counting algorithm applying the credit method has been introduced in the lecture. Implement that algorithm using the simulation framework. Choose a node which creates a local object that shall be accessed remotely. Now, implement a behavior such that in (random) time intervals (randomly) chosen nodes request a reference to the remote object and meanwhile some nodes discard their reference. Finally, discard all references at the end of the simulation such that the created object can be garbage collected.
   \subsection*{c)} % A drawback of mark and sweep is the freezing of the system. This approach has a bad impact on both, the distributed as well as the non-distributed (multiple threads running on the same machine) case. There are approaches that aim not to freeze the system permanently during the garbage collection in order to maintain performance. How can this be achieved?
 
 \section*{Exercise 3.2: Mutual Exclusion}
-  \subsection*{a)} % What is the difference between a distributed system and a parallel computer?
-  \subsection*{b)} % What is the difference between a distributed system and a parallel computer?
-    \paragraph*{(a)} % What is the difference between a distributed system and a parallel computer?
-    \paragraph*{(b)} % What is the difference between a distributed system and a parallel computer?
-  \subsection*{c)} % What is the difference between a distributed system and a parallel computer?
-    \paragraph*{(a)} % What is the difference between a distributed system and a parallel computer?
-    \paragraph*{(b)} % What is the difference between a distributed system and a parallel computer?
-  \subsection*{d)} % What is the difference between a distributed system and a parallel computer?
-
+  \subsection*{a)} % Lamport: The broadcast algorithm (Lamport, 1978) has been introduced in the lecture. The algorithm requires FIFO channels. Assume, we drop this precondition. Construct an example in which the algorithm does not work properly anymore
+  \subsection*{b)} % Ricart and Agrawala
+    \paragraph*{(a)} % Is this algorithm deadlock-free? Give a reasonable answer
+    \paragraph*{(b)} % Modify the broadcast algorithm of Ricart and Agrawala such that (at maximum) k ∈ N proces- ses are able to enter the critical section instead of just one.
+  \subsection*{c)} % Maekawa
+    \paragraph*{(a)} % The process mesh-algorithm (Maekawa, 1985) is based on the assumption that n processes are arranged in a quadratic mesh with an edge length of √n. Consider a situation where this assumption is not given (n is not a square number). Is it still feasible to use the algorithm?
+    \paragraph*{(b)} % It is also possible to apply a triangular arrangement instead of a quadratic one. Nevertheless the triangular arrangement is also not optimal. What are advantages and disadvantages of a minimal arrangement? How do you construct granting sets for this?
+  \subsection*{d)} % Suzuki and Kasami Implement the improved Token Ring Solution (Suzuki and Kasami, 1985) for mutual exclusion using the simulation framework. Now, implement a behavior such that in (random) time intervals (random- ly) chosen nodes try to access the resource. Choose your time intervals careful such that there are phases in which only a few (or no) nodes access the resource as well as phases in which multiple nodes try to access it.
 
 \end{document}
 
