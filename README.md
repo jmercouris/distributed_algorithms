@@ -1,6 +1,6 @@
 # distributed_algorithms
 
-* Assignment responses including .tex and .pdf file are located in assignment1/ass01.*
+* Assignment responses including .tex and .pdf file are located in assignment0X/Document
 * Please set your teachnet.path prior to attempting to use any of the shell scripts (e.g. runEcho.sh).
 
 HOW TO PREPARE YOUR SUBMISSION:
@@ -16,30 +16,19 @@ for example:
 
 OPTION_1:
 
-assignment1
-	|- teachnet.path
-	|- flooding
-		|- run.sh
-		|- myconfig.txt
-		|- Flooding.java
-		|- *.java
-	|- echo
-		|- run.sh
-		|- myconfig.txt
-		|- Echo.java
-		|- *.java
+# Template Layout
++ teachnet.path
+  + flooding
+    + run.sh
+	+ myconfig.txt
+	+ Flooding.java
+	+ *.java
+  + echo
+	+ run.sh
+	+ myconfig.txt
+	+ Echo.java
+	+ *.java
 
-OPTION_2:
-
-assignment1
-	|- teachnet.path
-	|- runFlooding.sh
-	|- runEcho.sh
-	|- flooding-config.txt
-	|- echo-config.txt
-	|- Flooding.java
-	|- Echo.java
-	|- *.java
 
 f) Keep naming conventions in mind:
 Either use "run.sh" or "runXXX.sh"
