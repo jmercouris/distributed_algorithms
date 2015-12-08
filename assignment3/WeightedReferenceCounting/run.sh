@@ -6,4 +6,5 @@ java -jar $tn_path \
 --config configuration.txt \
 --compile
 
+mkdir -p bin/
 mv *.class bin/
