@@ -5,3 +5,5 @@ java -jar $tn_path \
 --cp . \
 --config configuration.txt \
 --compile
+
+mv *.class bin

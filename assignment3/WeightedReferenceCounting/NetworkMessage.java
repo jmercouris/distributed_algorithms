@@ -3,26 +3,22 @@
  */
 public class NetworkMessage {
     String stringMessage = "";
+    Object data;
+    int color = 0;
     int value = -1;
-    boolean maximumValue = false;
 
+    
+    // Default Constructor
     public NetworkMessage() {
 
     }
-    public NetworkMessage(String inputString) {
-	stringMessage = inputString;
-    }
-    public NetworkMessage(String inputString, int inputValue) {
-	stringMessage = inputString;
-	value = inputValue;
+
+    public NetworkMessage(Object inputData) {
+	data = inputData;
     }
 
-    public NetworkMessage(int inputValue) {
-	value = inputValue;
-    }
-    public NetworkMessage(int inputValue, boolean inputMaximumValue) {
-	value = inputValue;
-	maximumValue = inputMaximumValue;
+    public NetworkMessage(String inputString) {
+	stringMessage = inputString;
     }
 
     public String toString() {
