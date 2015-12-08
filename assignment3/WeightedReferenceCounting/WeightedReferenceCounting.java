@@ -5,8 +5,17 @@ import teachnet.algorithm.BasicAlgorithm;
  * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
  */
 public class WeightedReferenceCounting extends BasicAlgorithm{
-    // Flag if received explore message
-    boolean informed = false;
+    // Variable Declarations
+    int id; // ID of the node
+    boolean informed = false; // Recieved explorer message
+    String caption = ""; // String next to node
+
+
+    // Setup Function
+    public void setup(java.util.Map<String, Object> config){
+	id = (Integer) config.get("node.id");
+	caption = "" + id;
+    }
 
     // Initiate the Algorithm by awakening all nodes
     public void initiate() {
@@ -22,7 +31,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
 	    if (!informed) {
 		informed = true;
 		sendAllExcept(inputMessage, sendingInterface);
-		run();
+
 	    }
 	    break;
 	default:
