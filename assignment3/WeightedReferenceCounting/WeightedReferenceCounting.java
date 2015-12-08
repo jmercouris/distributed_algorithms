@@ -1,4 +1,5 @@
 import teachnet.algorithm.BasicAlgorithm;
+import java.lang.Thread;
 
 /**
  * Group 11
@@ -10,11 +11,11 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
     boolean informed = false; // Recieved explorer message
     String caption = ""; // String next to node
 
-
     // Setup Function
     public void setup(java.util.Map<String, Object> config){
 	id = (Integer) config.get("node.id");
 	caption = "" + id;
+
     }
 
     // Initiate the Algorithm by awakening all nodes
@@ -31,7 +32,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
 	    if (!informed) {
 		informed = true;
 		sendAllExcept(inputMessage, sendingInterface);
-
+		run();
 	    }
 	    break;
 	default:
@@ -41,9 +42,11 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
 
     // Main Loop Thread
     public void run() { 
-	while (true) { 
-	    
-	}
+	try { 
+	    while (true) { 
+
+	    }
+	} catch (Exception e) {}
     }
 
     // Convenience Method to send a message to all neighbors
