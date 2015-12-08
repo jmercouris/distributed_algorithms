@@ -19,9 +19,21 @@
 \end{flushright}
 
 \section*{Exercise 3.1: Distributed Garbage Collection}
-  \subsection*{a)} % Automatic garbage collection simplifies the programming of distributed applications.Investigate how the distributed garbage collection is achieved in CORBA, Microsoft DCOM, Java RMI, and .Net Remoting and make a short comparision between these approaches
-  \subsection*{b)} % The Weighted Reference Counting algorithm applying the credit method has been introduced in the lecture. Implement that algorithm using the simulation framework. Choose a node which creates a local object that shall be accessed remotely. Now, implement a behavior such that in (random) time intervals (randomly) chosen nodes request a reference to the remote object and meanwhile some nodes discard their reference. Finally, discard all references at the end of the simulation such that the created object can be garbage collected.
-  \subsection*{c)} % A drawback of mark and sweep is the freezing of the system. This approach has a bad impact on both, the distributed as well as the non-distributed (multiple threads running on the same machine) case. There are approaches that aim not to freeze the system permanently during the garbage collection in order to maintain performance. How can this be achieved?
+\subsection*{a)}
+\begin{tabular}{r|p{10cm}}
+CORBA & No built in carbage collection, except that non-persistent objects are deactivated and removed automatically when the
+session expires or hangs, or when a time limit has expired \\[0.2cm]
+Microsoft DCOM & References held by clients of interfaces are released when, for example, the client process crashed, or the
+network connection was lost \\[0.2cm]
+Java RMI & A reference-counting garbage collection algorithm is used. The RMI runtime keeps track of all live references within
+each Java virtual machine When there is no live remote or local reference, the object is passed to the garbage collector.\\[0.2cm]
+.NET Remoting & Garbage is collected on a leased based lifetime. The garbage collector runs in cycles and only starts to check for
+live references to objects when their lease lifetime has expired. An object then is collected when no live references exist
+anymore.
+\end{tabular}
+
+\subsection*{b)}
+\subsection*{c)}
 
 \section*{Exercise 3.2: Mutual Exclusion}
   \subsection*{a)} % Lamport: The broadcast algorithm (Lamport, 1978) has been introduced in the lecture. The algorithm requires FIFO channels. Assume, we drop this precondition. Construct an example in which the algorithm does not work properly anymore
