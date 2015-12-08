@@ -3,8 +3,7 @@
  */
 public class NetworkMessage {
     String stringMessage = "";
-    int value = -1;
-    boolean maximumValue = false;
+	int timeCounter=0; //logical time
 
     public NetworkMessage() {
 
@@ -12,20 +11,17 @@ public class NetworkMessage {
     public NetworkMessage(String inputString) {
 	stringMessage = inputString;
     }
-    public NetworkMessage(String inputString, int inputValue) {
+	//this one we use
+    public NetworkMessage(String inputString, int time) {
 	stringMessage = inputString;
-	value = inputValue;
+	timeCounter = time;
     }
 
     public NetworkMessage(int inputValue) {
 	value = inputValue;
     }
-    public NetworkMessage(int inputValue, boolean inputMaximumValue) {
-	value = inputValue;
-	maximumValue = inputMaximumValue;
-    }
 
     public String toString() {
-	return "" + value;
+	return stringMessage+ " at " + timeCounter;
     }
 }

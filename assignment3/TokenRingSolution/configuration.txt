@@ -2,7 +2,7 @@
 
 teachnet.util.RandomRingGenerator
 
-n=java.lang.Integer:17
+n=java.lang.Integer:10
 
 [network]
 
@@ -17,6 +17,7 @@ TokenRingSolution
 
 [stack.configs]
 0.node.id=java.lang.String:$node.id
+0.network.size=java.lang.String:$network.size
 
 [inits]
 
