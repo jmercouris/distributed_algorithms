@@ -2,7 +2,7 @@
 
 teachnet.util.RandomRingGenerator
 
-n=java.lang.Integer:17
+n=java.lang.Integer:10
 
 [network]
 
@@ -12,7 +12,6 @@ delay.min=java.lang.Double:1.0
 delay.max=java.lang.Double:2.0
 
 [stack.algorithms]
-
 WeightedReferenceCounting
 
 [stack.configs]
@@ -20,4 +19,4 @@ WeightedReferenceCounting
 
 [inits]
 
-*,0,0.0
+0,0,0.0
