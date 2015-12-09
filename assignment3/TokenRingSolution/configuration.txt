@@ -18,6 +18,9 @@ TokenRingSolution
 [stack.configs]
 0.node.id=java.lang.String:$node.id
 0.network.size=java.lang.String:$network.size
+0.nintervals=java.lang.Integer:3
+0.latestRequest=java.lang.Double:30
+#seconds
 
 [inits]
 
