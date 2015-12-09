@@ -1,5 +1,5 @@
 import teachnet.algorithm.BasicAlgorithm;
-import java.lang.Thread;
+
 
 /**
  * Group 11
@@ -21,6 +21,19 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
     // Initiate the Algorithm by awakening all nodes
     public void initiate() {
 	sendAll(new NetworkMessage(NetworkMessage.EXPLORE));
+
+	// double delayTime = Math.random();
+	setTimeout(2, new Object());
+	
+    }
+
+    // Handle timeouts
+    public void timeout(Object inputObject) {
+	System.out.println("Timeout callback!");
+	sendAll(new NetworkMessage("Hey!"));
+	if (!informed) {
+	    setTimeout(2, new Object());
+	}
     }
 
     // Act on Recieved Messages
@@ -32,21 +45,11 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
 	    if (!informed) {
 		informed = true;
 		sendAllExcept(inputMessage, sendingInterface);
-		run();
 	    }
 	    break;
 	default:
 	    break;
 	}
-    }
-
-    // Main Loop Thread
-    public void run() { 
-	try { 
-	    while (true) { 
-
-	    }
-	} catch (Exception e) {}
     }
 
     // Convenience Method to send a message to all neighbors

@@ -38,7 +38,11 @@ public class NetworkMessage {
 	return type;
     }
 
+    public void setMessage(String inputString) {
+	stringMessage = inputString;
+    }
+
     public String toString() {
-	return "";
+	return "" + stringMessage;
     }
 }

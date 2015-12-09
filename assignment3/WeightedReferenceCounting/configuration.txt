@@ -13,6 +13,7 @@ WeightedReferenceCounting
 
 [stack.configs]
 0.node.id=java.lang.String:$node.id
+0.lastRequest=java.lang.Double:30
 
 [inits]
 *,0,0.0
