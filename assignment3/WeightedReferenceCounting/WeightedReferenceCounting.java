@@ -76,15 +76,18 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    System.out.println(" REQUEST REFERENCE");
 	    // If we have a weighted object, check we have the right one
 	    if (weightedObject != null) {
-		// We have the wrong weightd object, we should forward
+		// We have the wrong weighted object, we should forward
 		if (weightedObject.getID() != ((Integer)inputMessage.getData()).intValue()) {
 		    sendAllExcept(inputMessage, sendingInterface);
+		}
+		// We have the corrected weighted object, we must return a reference
+		else {
+
 		}
 	    } 
 	    // We don't have a weighted object, we should forward
 	    if (weightedObject == null) {
 		sendAllExcept(inputMessage, sendingInterface);
-
 	    }
 	    break;
 	default:
