@@ -1,7 +1,7 @@
 import teachnet.algorithm.BasicAlgorithm;
 import java.util.Random;
 import java.lang.Integer;
-
+import java.lang.Math;
 
 /**
  * Group 11
@@ -18,6 +18,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     int intervalDelayRange = 10; // Maximum delay time until next node execution
     WeightedObjectReference weightedObjectReference; // Reference to an object
     WeightedObject weightedObject; // A weighted object
+    boolean requestedReference = false; // Node has requested a reference
 
     ////////////////////////////////////////////////////////////////////////////////
     // Setup Function
@@ -28,7 +29,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 
 	// Node 0 creates an object that will be accessed remotely
 	if (id == 0) {
-	    weightedObject = new WeightedObject(32, 0);
+	    weightedObject = new WeightedObject(Math.pow(2, 10), 0);
 	}
     }
 
@@ -36,7 +37,6 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     // Initiate the Algorithm by awakening all nodes
     ////////////////////////////////////////////////////////////////////////////////
     public void initiate() {
-	sendAll(new NetworkMessage(NetworkMessage.EXPLORE));
 	// Initialize independent node loops
 	setTimeout(0, new Object());
     }
@@ -54,8 +54,10 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     ////////////////////////////////////////////////////////////////////////////////
     public void run() { 
 	// Probability of making a request, 70%
-	if (generator.nextInt(100) > 70) {
+	if (generator.nextInt(100) > 70 && requestedReference == false) {
 	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), "Request"));
+	    requestedReference = true;
+	    System.out.println("Node: " + id + " Request");
 	}
     }
 
@@ -73,7 +75,6 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    }
 	    break;
 	case NetworkMessage.REQUEST_REFERENCE:
-	    System.out.println(" REQUEST REFERENCE");
 	    // If we have a weighted object, check we have the right one
 	    if (weightedObject != null) {
 		// We have the wrong weighted object, we should forward
@@ -82,6 +83,10 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		}
 		// We have the corrected weighted object, we must return a reference
 		else {
+
+		}
+		// If we have a reference to an object already, check if we have it
+		if (weightedObjectReference != null) {
 
 		}
 	    } 

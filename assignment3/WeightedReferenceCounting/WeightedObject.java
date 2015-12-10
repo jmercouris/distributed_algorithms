@@ -2,7 +2,7 @@
  * 
  */
 public class WeightedObject {
-    int weight = 0;
+    double weight = 0;
     int id = 0;
     
     // Default Constructor
@@ -10,12 +10,12 @@ public class WeightedObject {
 
     }
 
-    public WeightedObject(int inputWeight, int inputID) {
+    public WeightedObject(double inputWeight, int inputID) {
 	weight = inputWeight;
 	id = inputID;
     }
 
-    public int getWeight() { 
+    public double getWeight() { 
 	return weight;
     }
     

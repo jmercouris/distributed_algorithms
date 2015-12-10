@@ -5,8 +5,10 @@ import java.awt.Color;
 public class NetworkMessage {
     
     // Static list of Message Types, Invokes different node behavior
-    public static final int EXPLORE = 0;
-    public static final int REQUEST_REFERENCE = 1;
+    public static final int EXPLORE = 0;           // Explore the nodes around yourself
+    public static final int REQUEST_REFERENCE = 1; // Ask object owner for reference
+    public static final int RETURN_REFERENCE = 2;  // Return reference to reference requester
+    public static final int DISCARD_REFERENCE = 3; // Send discard message to object owner
 
     // Instance Variables
     Object data;
