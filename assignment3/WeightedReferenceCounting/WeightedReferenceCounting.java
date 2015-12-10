@@ -1,5 +1,6 @@
 import teachnet.algorithm.BasicAlgorithm;
 import java.util.Random;
+import java.lang.Integer;
 
 
 /**
@@ -24,6 +25,11 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     public void setup(java.util.Map<String, Object> config){
 	id = (Integer) config.get("node.id");
 	caption = "" + id;
+
+	// Node 0 creates an object that will be accessed remotely
+	if (id == 0) {
+	    weightedObject = new WeightedObject(32, 0);
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +55,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     public void run() { 
 	// Probability of making a request, 70%
 	if (generator.nextInt(100) > 70) {
-	    
+	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), "Request"));
 	}
     }
 
@@ -64,6 +70,21 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    if (!informed) {
 		informed = true;
 		sendAllExcept(inputMessage, sendingInterface);
+	    }
+	    break;
+	case NetworkMessage.REQUEST_REFERENCE:
+	    System.out.println(" REQUEST REFERENCE");
+	    // If we have a weighted object, check we have the right one
+	    if (weightedObject != null) {
+		// We have the wrong weightd object, we should forward
+		if (weightedObject.getID() != ((Integer)inputMessage.getData()).intValue()) {
+		    sendAllExcept(inputMessage, sendingInterface);
+		}
+	    } 
+	    // We don't have a weighted object, we should forward
+	    if (weightedObject == null) {
+		sendAllExcept(inputMessage, sendingInterface);
+
 	    }
 	    break;
 	default:
@@ -84,6 +105,10 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		send(i, inputMessage);
 	    }
 	}
+    }
+    // Send to one node
+    public void sendOne(NetworkMessage inputMessage) {
+	send(0, inputMessage);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
