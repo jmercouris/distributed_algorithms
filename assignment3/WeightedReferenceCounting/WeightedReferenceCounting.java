@@ -32,7 +32,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
     }
 
     ////////////////////////////////////////////////////////////////////////////////
-    // Handle timeouts
+    // Handle timeouts - Schedule next interruption at random interval
     ////////////////////////////////////////////////////////////////////////////////
     public void timeout(Object inputObject) {
 	setTimeout(generator.nextInt(intervalDelayRange), new Object());
@@ -43,7 +43,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
     // Run Method
     ////////////////////////////////////////////////////////////////////////////////
     public void run() { 
-	sendAll(new NetworkMessage("Hey!"));
+	
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
 	    send(i, inputMessage);
 	}
     }
-    // Convenience Method to send a message to all neighbors
+    // Convenience Method to send a message to all neighbors except one
     public void sendAllExcept(NetworkMessage inputMessage, int exceptInterface) { 
 	for (int i = 0; i < checkInterfaces(); i++) {
 	    if (i != exceptInterface) {
