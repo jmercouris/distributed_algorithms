@@ -33,6 +33,12 @@ public class NetworkMessage {
 	data = inputData;
     }
 
+    public NetworkMessage(int inputType, Object inputData, String inputString) {
+	type = inputType;
+	data = inputData;
+	stringMessage = inputString;
+    }
+
     public NetworkMessage(String inputString) {
 	stringMessage = inputString;
     }
