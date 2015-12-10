@@ -6,13 +6,17 @@ import java.util.Random;
  * Group 11
  * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
  */
-public class WeightedReferenceCounting extends BasicAlgorithm{
+public class WeightedReferenceCounting extends BasicAlgorithm {
+    ////////////////////////////////////////////////////////////////////////////////
     // Variable Declarations
+    ////////////////////////////////////////////////////////////////////////////////
     int id; // ID of the node
     boolean informed = false; // Recieved explorer message
     String caption = ""; // String next to node
-    Random generator = new Random(); // Random number generator, used for control
-    int intervalDelayRange = 10;
+    Random generator = new Random(); // Random number generator
+    int intervalDelayRange = 10; // Maximum delay time until next node execution
+    WeightedObjectReference weightedObjectReference; // Reference to an object
+    WeightedObject weightedObject; // A weighted object
 
     ////////////////////////////////////////////////////////////////////////////////
     // Setup Function
@@ -43,7 +47,10 @@ public class WeightedReferenceCounting extends BasicAlgorithm{
     // Run Method
     ////////////////////////////////////////////////////////////////////////////////
     public void run() { 
-	
+	// Probability of making a request, 70%
+	if (generator.nextInt(100) > 70) {
+	    
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////////

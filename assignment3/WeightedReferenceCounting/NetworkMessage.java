@@ -6,6 +6,7 @@ public class NetworkMessage {
     
     // Static list of Message Types, Invokes different node behavior
     public static final int EXPLORE = 0;
+    public static final int REQUEST_REFERENCE = 1;
 
     // Instance Variables
     Object data;
@@ -27,6 +28,11 @@ public class NetworkMessage {
 	type = inputType;
     }
 
+    public NetworkMessage(int inputType, Object inputData) {
+	type = inputType;
+	data = inputData;
+    }
+
     public NetworkMessage(String inputString) {
 	stringMessage = inputString;
     }
@@ -36,6 +42,10 @@ public class NetworkMessage {
     ////////////////////////////////////////////////////////////////////////////////
     public int getType() {
 	return type;
+    }
+
+    public Object getData() { 
+	return data;
     }
 
     public void setMessage(String inputString) {
