@@ -71,7 +71,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    && weightedObject == null) {
 	    System.out.println("Node: " + id + " Discard");
 	    weightedObjectReference = null;
-	    sendOne(new NetworkMessage(NetworkMessage.DISCARD_REFERENCE, new Integer(0), 
+	    sendOne(new NetworkMessage(NetworkMessage.DISCARD_REFERENCE, weightedObjectReference, 
 				       "Reference Discard: " + id, id, -1));
 	}
     }
@@ -153,6 +153,20 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 
 	case NetworkMessage.DISCARD_REFERENCE:
 	    System.out.println("Discard reference");
+
+	    ////////////////////////////////////////
+	    // If we have a weighted object, we must 
+	    if (weightedObject != null) {
+		if (weightedObject.returnReference(10)) {
+		    System.out.println("All references discarded");
+		}
+	    }
+
+	    ////////////////////////////////////////
+	    // If we aren't the intended recipient, forward
+	    else {
+		sendOne(inputMessage);
+	    }
 	    break;
 	default:
 	    break;
