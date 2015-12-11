@@ -12,12 +12,16 @@ public class WeightedObjectReference extends WeightedObject {
 	weight = inputWeight;
     }
 
-    // Split self in half, and give new reference
+    /*
+     * Split self in half, and give new reference
+     */
     public WeightedObjectReference getWeightedObjectReference() {
 	return super.getWeightedObjectReference();
     }
 
-    // Weight must be at least 2 to give a reference and split
+    /*
+     * Weight must be at least 2 to give a reference and split
+     */
     public boolean canSplit() {
 	if (weight > 1) {
 	    return true;
