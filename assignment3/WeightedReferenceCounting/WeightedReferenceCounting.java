@@ -108,6 +108,9 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    // If the message was intendend for me
 	    if (inputMessage.getRecipient() == id) {
 		System.out.println("Node: " + id + " Return");
+		// Assign our local weighted object reference to our sent reference
+		weightedObjectReference = (WeightedObjectReference) inputMessage.getData();
+		System.out.println("Weight Obtained" + weightedObjectReference.getWeight());
 	    }
 	    // If the message is not meant for me, forward
 	    else {
