@@ -7,6 +7,13 @@ import java.awt.Color;
 /**
  * Group 11
  * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
+ *
+ * Implementation of enhanced Weighted reference counting variant
+ * IN ADDITION to splitting from the object provider, splitting of references
+ * can occur from nodes that have a reference to an object
+ * what you are effectively creating is a reference of a reference, resulting
+ * in overall fewer messages passing through the network.
+ *
  */
 public class WeightedReferenceCounting extends BasicAlgorithm {
     ////////////////////////////////////////////////////////////////////////////////
