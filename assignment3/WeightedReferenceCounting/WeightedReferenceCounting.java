@@ -157,7 +157,9 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    ////////////////////////////////////////
 	    // If we have a weighted object, we must 
 	    if (weightedObject != null) {
-		if (weightedObject.returnReference(10)) {
+		WeightedObjectReference reference = (WeightedObjectReference) inputMessage.getData();
+		
+		if (weightedObject.returnReference(reference.getWeight())) {
 		    System.out.println("All references discarded");
 		}
 	    }
