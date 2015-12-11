@@ -58,7 +58,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	
 	////////////////////////////////////////
 	// Probability of making a request 70%
-	if (generator.nextInt(100) > 70 && requestedReference == false) {
+	if (generator.nextInt(100) > 70 && requestedReference == false && weightedObject == null) {
 	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), 
 				       "Reference Request: " + id, id, -1));
 	    requestedReference = true;
@@ -156,12 +156,11 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    // If we have a weighted object, we must 
 	    if (weightedObject != null) {
 		WeightedObjectReference reference = (WeightedObjectReference) inputMessage.getData();
-		System.out.println("Discard reference" + reference.getWeight());		
+		System.out.println("Discard reference: " + reference.getWeight() + " Sender: "  + inputMessage.getSender());		
 
 		if (weightedObject.returnReference(reference.getWeight())) {
 		    System.out.println("All references discarded");
 		}
-		System.out.println(weightedObject.toString());
 	    }
 
 	    ////////////////////////////////////////

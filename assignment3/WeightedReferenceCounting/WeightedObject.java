@@ -26,7 +26,7 @@ public class WeightedObject {
 
     public boolean returnReference (double inputWeight) {
 	weight += inputWeight;
-	if (inputWeight == partialWeight) {
+	if (weight == partialWeight) {
 	    return true;
 	}
         return false;
