@@ -1,5 +1,5 @@
 /*
- * 
+ * Class represents a reference to a weighted object
  */
 public class WeightedObjectReference extends WeightedObject {
     // Default Constructor

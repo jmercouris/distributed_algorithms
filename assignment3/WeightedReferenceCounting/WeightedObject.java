@@ -1,9 +1,9 @@
 /*
- * 
+ * Class represents a weighted object
  */
 public class WeightedObject {
     double weight = 0;
-    double partialWeight = 0;
+    double prototypeWeight = 0;
     int id = 0;
     
     // Default Constructor
@@ -14,7 +14,7 @@ public class WeightedObject {
     // Constructor with weight, initially partial weight and total weight are equal
     public WeightedObject(double inputWeight, int inputID) {
 	weight = inputWeight;
-	partialWeight = weight;
+	prototypeWeight = weight;
 	id = inputID;
     }
 
@@ -26,7 +26,7 @@ public class WeightedObject {
 
     public boolean returnReference (double inputWeight) {
 	weight += inputWeight;
-	if (weight == partialWeight) {
+	if (weight == prototypeWeight) {
 	    return true;
 	}
         return false;
@@ -44,6 +44,6 @@ public class WeightedObject {
 
     // Tostring to examine object
     public String toString() {
-	return "Total Weight: " + partialWeight + " Partial Weight: " + weight;
+	return "Total Weight: " + prototypeWeight + " Partial Weight: " + weight;
     }
 }
