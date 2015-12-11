@@ -98,7 +98,6 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 
 	switch (inputMessage.getType()) {
 	case NetworkMessage.REQUEST_REFERENCE:
-
 	    ////////////////////////////////////////
 	    // If we have a weighted object, check we have the right one
 	    if (weightedObject != null) {
@@ -139,7 +138,6 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    break;
 
 	case NetworkMessage.RETURN_REFERENCE:
-
 	    ////////////////////////////////////////
 	    // If the message was intendend for me
 	    if (inputMessage.getRecipient() == id) {
