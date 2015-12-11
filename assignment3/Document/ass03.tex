@@ -43,7 +43,7 @@ Parallel garbage collectors solve the problem by running the collection parallel
   \subsection*{b)} % Ricart and Agrawala
     \paragraph*{(a)} 
     If there are only resources that are independent, i.e. processes do not need other resources to finish the access to one of them, the logical clock
-     syncronization and not using actual release messages leads to a sequential use of the recources and deadlocks can't appear.
+     synchronization and not using actual release messages leads to a sequential use of the resources and deadlocks cannot occur.
     \paragraph*{(b)} 
     A process only has to wait for $n-k$ confirmations before it can access. Since at most $k$ processes can have $k$ confirmations at any given time, only $k$ processes can access the resource simulanously. Incoming confirmations for already accessed data can be ignored.
   \subsection*{c)} % Maekawa
