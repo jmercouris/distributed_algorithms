@@ -1,6 +1,6 @@
 [graph.random]
 teachnet.util.RandomRingGenerator
-n=java.lang.Integer:4
+n=java.lang.Integer:40
 
 [network]
 teachnet.network.LinearDelayNetwork

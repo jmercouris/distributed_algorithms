@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 /*
  * Class represents a weighted object
  */
@@ -20,7 +22,13 @@ public class WeightedObject {
 
     // Split self in half, and give new reference
     public WeightedObjectReference getWeightedObjectReference() {
-	weight = weight / 2;
+	if (weight > 1) {
+	    weight = weight / 2;
+	} else {
+	    prototypeWeight += Math.pow(2, 10);
+	    weight += Math.pow(2, 10) - 1;
+	    weight = weight / 2;
+	}
 	return new WeightedObjectReference(id, weight);
     }
 

@@ -167,6 +167,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		if (weightedObject.returnReference(reference.getWeight())) {
 		    System.out.println("All references discarded");
 		}
+		System.out.println(weightedObject.toString());
 	    }
 
 	    ////////////////////////////////////////
