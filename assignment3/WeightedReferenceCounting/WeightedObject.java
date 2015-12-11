@@ -44,6 +44,6 @@ public class WeightedObject {
 
     // Tostring to examine object
     public String toString() {
-	return "";
+	return "Total Weight: " + partialWeight + " Partial Weight: " + weight;
     }
 }
