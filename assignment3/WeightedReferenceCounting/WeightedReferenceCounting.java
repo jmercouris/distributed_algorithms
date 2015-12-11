@@ -19,6 +19,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     WeightedObjectReference weightedObjectReference; // Reference to an object
     WeightedObject weightedObject; // A weighted object
     boolean requestedReference = false; // Node has requested a reference
+    int color = 4;
 
     ////////////////////////////////////////////////////////////////////////////////
     // Setup Function
@@ -60,6 +61,10 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    requestedReference = true;
 	    System.out.println("Node: " + id + " Request");
 	}
+	// If we already have a reference, let's discard it
+	else {
+	    
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -92,14 +97,23 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 					       "Reference Return: " + inputMessage.getSender(), 
 					       id, inputMessage.getSender()));
 		}
-		// If we have a reference to an object already, check if we have it
-		// If we have it, make sure we can split it and give a reference
-		if (weightedObjectReference != null) {
-
+	    }
+	    // If we have a reference to an object already, check if we have it
+	    // If we have it, make sure we can split it and give a reference
+	    if (weightedObjectReference != null) {
+		if (weightedObjectReference.canSplit()) {
+		    sendOne(new NetworkMessage(NetworkMessage.RETURN_REFERENCE, 
+					       weightedObjectReference.getWeightedObjectReference(), 
+					       "Reference Return: " + inputMessage.getSender(), 
+					       id, inputMessage.getSender()));
+		} 
+		// If we cant split our local copy forward the request
+		else {
+		    sendOne(inputMessage);
 		}
-	    } 
-	    // We don't have a weighted object, we should forward
-	    if (weightedObject == null) {
+	    }
+	    // We don't have a weighted object or a reference we should forward
+	    if (weightedObject == null && weightedObjectReference == null) {
 		sendAllExcept(inputMessage, sendingInterface);
 	    }
 	    break;

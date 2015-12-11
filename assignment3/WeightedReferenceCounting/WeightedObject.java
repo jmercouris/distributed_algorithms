@@ -24,14 +24,17 @@ public class WeightedObject {
 	return new WeightedObjectReference(id, weight);
     }
 
+    // Get the weight of the object
     public double getWeight() { 
 	return weight;
     }
     
+    // Get the ID of the object
     public int getID() { 
 	return id;
     }
 
+    // Tostring to examine object
     public String toString() {
 	return "";
     }

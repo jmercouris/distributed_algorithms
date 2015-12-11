@@ -17,4 +17,12 @@ public class WeightedObjectReference extends WeightedObject {
 	return super.getWeightedObjectReference();
     }
 
+    // Weight must be at least 2 to give a reference and split
+    public boolean canSplit() {
+	if (weight > 1) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
 }
