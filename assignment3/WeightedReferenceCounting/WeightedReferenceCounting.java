@@ -55,7 +55,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     public void run() { 
 	// Probability of making a request, 70%
 	if (generator.nextInt(100) > 70 && requestedReference == false) {
-	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), "Request"));
+	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), 
+				       "Reference Request: " + id, id, -1));
 	    requestedReference = true;
 	    System.out.println("Node: " + id + " Request");
 	}
@@ -67,13 +68,16 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     public void receive(int sendingInterface, Object message) {
 	// Cast Message to Network Message Object
 	NetworkMessage inputMessage = (NetworkMessage) message;
+
 	switch (inputMessage.getType()) {
+
 	case NetworkMessage.EXPLORE:
 	    if (!informed) {
 		informed = true;
 		sendAllExcept(inputMessage, sendingInterface);
 	    }
 	    break;
+
 	case NetworkMessage.REQUEST_REFERENCE:
 	    // If we have a weighted object, check we have the right one
 	    if (weightedObject != null) {
@@ -83,9 +87,13 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		}
 		// We have the corrected weighted object, we must return a reference
 		else {
-
+		    sendOne(new NetworkMessage(NetworkMessage.RETURN_REFERENCE, 
+					       weightedObject.getWeightedObjectReference(), 
+					       "Reference Return: " + inputMessage.getSender(), 
+					       id, inputMessage.getSender()));
 		}
 		// If we have a reference to an object already, check if we have it
+		// If we have it, make sure we can split it and give a reference
 		if (weightedObjectReference != null) {
 
 		}
@@ -95,11 +103,25 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		sendAllExcept(inputMessage, sendingInterface);
 	    }
 	    break;
+
+	case NetworkMessage.RETURN_REFERENCE:
+	    // If the message was intendend for me
+	    if (inputMessage.getRecipient() == id) {
+		System.out.println("Node: " + id + " Return");
+	    }
+	    // If the message is not meant for me, forward
+	    else {
+		sendOne(inputMessage);
+	    }
+	    break;
 	default:
 	    break;
 	}
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    // Helper Functions
+    ////////////////////////////////////////////////////////////////////////////////
     // Convenience Method to send a message to all neighbors
     public void sendAll(NetworkMessage inputMessage) { 
 	for (int i = 0; i < checkInterfaces(); i++) {

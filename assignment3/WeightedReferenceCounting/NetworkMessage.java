@@ -13,7 +13,9 @@ public class NetworkMessage {
     // Instance Variables
     Object data;
     int type = 0;
-    String stringMessage = "";    
+    String stringMessage = "";
+    int sender;
+    int recipient;
     
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +43,15 @@ public class NetworkMessage {
 	stringMessage = inputString;
     }
 
+    public NetworkMessage(int inputType, Object inputData, String inputString, 
+			  int inputSender, int inputRecipient) {
+	type = inputType;
+	data = inputData;
+	stringMessage = inputString;
+	recipient = inputRecipient;
+	sender = inputSender;
+    }
+
     public NetworkMessage(String inputString) {
 	stringMessage = inputString;
     }
@@ -54,6 +65,22 @@ public class NetworkMessage {
 
     public Object getData() { 
 	return data;
+    }
+
+    public void setSender(int inputSender) {
+	sender = inputSender;
+    }
+    
+    public int getSender() {
+	return sender;
+    }
+
+    public void setRecipient(int inputRecipient) {
+	recipient = inputRecipient;
+    }
+
+    public int getRecipient() {
+	return recipient;
     }
 
     public void setMessage(String inputString) {
