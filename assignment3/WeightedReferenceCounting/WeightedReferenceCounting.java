@@ -22,9 +22,13 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     boolean requestedReference = false; // Node has requested a reference
     Color color;
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // Setup Function
-    ////////////////////////////////////////////////////////////////////////////////
+    int requestProbability = 30; // Probability of making a request
+    int discardProbability = 30; // Probability of discarding a reference
+
+    /**
+     * Method sets captions for all nodes to their ID, sets the weighted object up
+     * for node one
+     */
     public void setup(java.util.Map<String, Object> config){
 	id = (Integer) config.get("node.id");
 	caption = "" + id;
@@ -35,30 +39,31 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	}
     }
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // Initiate the Algorithm by awakening all nodes
-    ////////////////////////////////////////////////////////////////////////////////
+    /**
+     * The program loops the timeout method to control node behavior
+     */
     public void initiate() {
 	// Initialize independent node loops
 	setTimeout(0, new Object());
     }
-
-    ////////////////////////////////////////////////////////////////////////////////
-    // Handle timeouts - Schedule next interruption at random interval
-    ////////////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * Handle timeouts - Schedule next interruption at random interval
+     */
     public void timeout(Object inputObject) {
 	setTimeout(generator.nextInt(intervalDelayRange), new Object());
 	run();
     }
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // Run Method
-    ////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Node action, controlled by probability
+     */ 
     public void run() { 
 	
 	////////////////////////////////////////
 	// Probability of making a request 70%
-	if (generator.nextInt(100) > 70 && requestedReference == false && weightedObject == null) {
+	if (generator.nextInt(100) > (100-requestProbability) 
+	    && requestedReference == false && weightedObject == null) {
 	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), 
 				       "Reference Request: " + id, id, -1));
 	    requestedReference = true;
@@ -67,7 +72,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	
 	////////////////////////////////////////
 	// If we already have a reference, Probability of discarding a reference 70%
-	if (generator.nextInt(100) > 70 && weightedObjectReference != null 
+	if (generator.nextInt(100) > (100-discardProbability)
+	    && weightedObjectReference != null 
 	    && weightedObject == null) {
 	    System.out.println("Node: " + id + " Discard");
 	    sendOne(new NetworkMessage(NetworkMessage.DISCARD_REFERENCE, weightedObjectReference, 
@@ -76,9 +82,9 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	}
     }
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // Act on Recieved Messages
-    ////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Act on recieved messages, based on what TYPE of message they are
+     */ 
     public void receive(int sendingInterface, Object message) {
 	// Cast Message to Network Message Object
 	NetworkMessage inputMessage = (NetworkMessage) message;
@@ -196,7 +202,14 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	send(0, inputMessage);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // End Class
-    ////////////////////////////////////////////////////////////////////////////////
+    // Will send to the OTHER interface, thus forwarding a message
+    public void forwardMessage(NetworkMessage inputMessage, int inputSendingInterface) {
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    if (i != inputSendingInterface) {
+		send(i, inputMessage);
+	    }
+	}
+    }
+
+    // End class
 }
