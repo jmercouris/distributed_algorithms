@@ -84,6 +84,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    break;
 
 	case NetworkMessage.REQUEST_REFERENCE:
+
+	    ////////////////////////////////////////
 	    // If we have a weighted object, check we have the right one
 	    if (weightedObject != null) {
 		// We have the wrong weighted object, we should forward
@@ -98,6 +100,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 					       id, inputMessage.getSender()));
 		}
 	    }
+
+	    ////////////////////////////////////////
 	    // If we have a reference to an object already, check if we have it
 	    // If we have it, make sure we can split it and give a reference
 	    if (weightedObjectReference != null) {
@@ -112,6 +116,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		    sendOne(inputMessage);
 		}
 	    }
+
+	    ////////////////////////////////////////
 	    // We don't have a weighted object or a reference we should forward
 	    if (weightedObject == null && weightedObjectReference == null) {
 		sendAllExcept(inputMessage, sendingInterface);
@@ -119,6 +125,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    break;
 
 	case NetworkMessage.RETURN_REFERENCE:
+
+	    ////////////////////////////////////////
 	    // If the message was intendend for me
 	    if (inputMessage.getRecipient() == id) {
 		System.out.println("Node: " + id + " Return");
@@ -126,6 +134,8 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		weightedObjectReference = (WeightedObjectReference) inputMessage.getData();
 		System.out.println("Weight Obtained" + weightedObjectReference.getWeight());
 	    }
+	    
+	    ////////////////////////////////////////
 	    // If the message is not meant for me, forward
 	    else {
 		sendOne(inputMessage);
