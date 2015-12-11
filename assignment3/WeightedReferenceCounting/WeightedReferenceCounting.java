@@ -27,7 +27,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     WeightedObjectReference weightedObjectReference; // Reference to an object
     WeightedObject weightedObject; // A weighted object
     boolean requestedReference = false; // Node has requested a reference
-    Color color;
+    Color color; // Color of the node
 
     int requestProbability = 30; // Probability of making a request
     int discardProbability = 30; // Probability of discarding a reference
