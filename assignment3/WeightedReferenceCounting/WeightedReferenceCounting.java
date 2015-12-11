@@ -147,7 +147,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 		System.out.println("Node: " + id + " Return");
 		// Assign our local weighted object reference to our sent reference
 		weightedObjectReference = (WeightedObjectReference) inputMessage.getData();
-		System.out.println("Weight Obtained" + weightedObjectReference.getWeight());
+		System.out.println("Weight Obtained: " + weightedObjectReference.getWeight());
 	    }
 	    
 	    ////////////////////////////////////////

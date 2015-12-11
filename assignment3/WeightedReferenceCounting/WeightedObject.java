@@ -22,14 +22,25 @@ public class WeightedObject {
 
     // Split self in half, and give new reference
     public WeightedObjectReference getWeightedObjectReference() {
+	// Initialize reference weight to 0
+	double referenceWeight = 0.0;
+
+	// If our weight is 2 or above, give half our weight
 	if (weight > 1) {
 	    weight = weight / 2;
-	} else {
-	    prototypeWeight += Math.pow(2, 10);
-	    weight += Math.pow(2, 10) - 1;
-	    weight = weight / 2;
+	    referenceWeight = weight;
 	}
-	return new WeightedObjectReference(id, weight);
+
+	// If our weight is 1, 
+	// set referenceWeight = 1, thereby giving away that weight, 
+	// and add 2^10 to our weight for further references
+	if (weight == 1) {
+	    prototypeWeight += Math.pow(2, 10);	    
+	    weight = Math.pow(2, 10);
+	    referenceWeight = 1;
+	}
+
+	return new WeightedObjectReference(id, referenceWeight);
     }
 
     public boolean returnReference (double inputWeight) {
