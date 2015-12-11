@@ -11,11 +11,11 @@ public class NetworkMessage {
     public static final int DISCARD_REFERENCE = 3; // Send discard message to object owner
 
     // Instance Variables
-    Object data;
-    int type = 0;
-    String stringMessage = "";
-    int sender;
-    int recipient;
+    Object data; // Data that the network message is passing
+    int type = 0; // The type of message, used by the node recieve method to determine a course of action
+    String stringMessage = ""; // The stringMessage of the message, used in rendering in the GUI
+    int sender; // The id of the sending node
+    int recipient; // The id of the final intended recipient node
     
 
     ////////////////////////////////////////////////////////////////////////////////

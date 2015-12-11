@@ -56,7 +56,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     }
 
     /**
-     * Node action, controlled by probability
+     * Node action, controlled by probability, run method gets called by setTimeout on a loop
      */ 
     public void run() { 
 	
@@ -90,14 +90,6 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	NetworkMessage inputMessage = (NetworkMessage) message;
 
 	switch (inputMessage.getType()) {
-
-	case NetworkMessage.EXPLORE:
-	    if (!informed) {
-		informed = true;
-		sendAllExcept(inputMessage, sendingInterface);
-	    }
-	    break;
-
 	case NetworkMessage.REQUEST_REFERENCE:
 
 	    ////////////////////////////////////////
