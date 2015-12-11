@@ -37,7 +37,8 @@ anymore.
 Parallel garbage collectors solve the problem by running the collection parallel to the client, which means that the garbage collector does introduce some overhead but does not freeze the system.
 
 \section*{Exercise 3.2: Mutual Exclusion}
-  \subsection*{a)} % Lamport: The broadcast algorithm (Lamport, 1978) has been introduced in the lecture. The algorithm requires FIFO channels. Assume, we drop this precondition. Construct an example in which the algorithm does not work properly anymore
+  \subsection*{a)} 
+  If we take the exsample from the lecture and assume that message 6 from P3 would reach P1 before message 3, P1 would start to access and P3 would start to access when it receives confirmation of P2. This could happen at overlapping time intervals.
   \subsection*{b)} % Ricart and Agrawala
     \paragraph*{(a)} % Is this algorithm deadlock-free? Give a reasonable answer
     \paragraph*{(b)} % Modify the broadcast algorithm of Ricart and Agrawala such that (at maximum) k ∈ N proces- ses are able to enter the critical section instead of just one.
