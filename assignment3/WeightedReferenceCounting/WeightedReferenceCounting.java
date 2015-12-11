@@ -2,6 +2,7 @@ import teachnet.algorithm.BasicAlgorithm;
 import java.util.Random;
 import java.lang.Integer;
 import java.lang.Math;
+import java.awt.Color;
 
 /**
  * Group 11
@@ -19,7 +20,7 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     WeightedObjectReference weightedObjectReference; // Reference to an object
     WeightedObject weightedObject; // A weighted object
     boolean requestedReference = false; // Node has requested a reference
-    int color = 4;
+    Color color;
 
     ////////////////////////////////////////////////////////////////////////////////
     // Setup Function
@@ -54,16 +55,24 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
     // Run Method
     ////////////////////////////////////////////////////////////////////////////////
     public void run() { 
-	// Probability of making a request, 70%
+	
+	////////////////////////////////////////
+	// Probability of making a request 70%
 	if (generator.nextInt(100) > 70 && requestedReference == false) {
 	    sendOne(new NetworkMessage(NetworkMessage.REQUEST_REFERENCE, new Integer(0), 
 				       "Reference Request: " + id, id, -1));
 	    requestedReference = true;
 	    System.out.println("Node: " + id + " Request");
 	}
-	// If we already have a reference, let's discard it
-	else {
-	    
+	
+	////////////////////////////////////////
+	// If we already have a reference, Probability of discarding a reference 70%
+	if (generator.nextInt(100) > 70 && weightedObjectReference != null 
+	    && weightedObject == null) {
+	    System.out.println("Node: " + id + " Discard");
+	    weightedObjectReference = null;
+	    sendOne(new NetworkMessage(NetworkMessage.DISCARD_REFERENCE, new Integer(0), 
+				       "Reference Discard: " + id, id, -1));
 	}
     }
 
@@ -140,6 +149,10 @@ public class WeightedReferenceCounting extends BasicAlgorithm {
 	    else {
 		sendOne(inputMessage);
 	    }
+	    break;
+
+	case NetworkMessage.DISCARD_REFERENCE:
+	    System.out.println("Discard reference");
 	    break;
 	default:
 	    break;
