@@ -32,8 +32,9 @@ live references to objects when their lease lifetime has expired. An object then
 anymore.
 \end{tabular}
 
-\subsection*{b)}
-\subsection*{c)}
+%\subsection*{b)} see implementation
+\subsection*{c)} Generational garbage collectors divide the objects according to their age and concentrate on young objects since these are more likely to be garbage. Collections of young objects only are usually fast and the system is not freezed for a long time. However, such a garbage collector still has to run a collection on all objects sometimes which then freezes the system for about the same time as a normal garbage collection on all objects does.
+Parallel garbage collectors solve the problem by running the collection parallel to the client, which means that the garbage collector does introduce some overhead but does not freeze the system.
 
 \section*{Exercise 3.2: Mutual Exclusion}
   \subsection*{a)} % Lamport: The broadcast algorithm (Lamport, 1978) has been introduced in the lecture. The algorithm requires FIFO channels. Assume, we drop this precondition. Construct an example in which the algorithm does not work properly anymore
