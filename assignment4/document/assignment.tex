@@ -31,9 +31,11 @@
   	
 \section{Exercise 4.2: Vector Clocks}
 	\subsection*{a)} % Causal Order
+	If we would use the vectors as applied by the causal broadcast without sending messages to every process, a lot of the messages would not fulfill the (second part of the) delivery condition and might never be delivered because messages from other processes are missing and will never arrive because they are not sent at all. The delivery condition is neccessary because it ensures "that the messages are delivered in an order
+	satisfying causality" [lecture 08, slide 59].
 	\subsection*{b)} % Order Relation
-		\paragraph{a)}
-		\paragraph{b)}
-		\paragraph{c)}
+		\paragraph{a)} Because the "less than"-relation is a strict but not a total order, we have to show that it holds transitivity in the set of system events. Let e,f and g be three system events and assume it holds $V(e)<V(f)$, $V(f)<V(g)$ and hence $C(e)<C(f)$ and $C(f)<C(g)$. From slide 54, lecture 8 it follows that $e \rightarrow f$ and $f \rightarrow g$ and obviously this leads to $e \rightarrow g$ which is equivalent to $V(e)<V(g)$. Thus, it holds $C(e)<C(g)$ and because e,f and g were arbitrary we have shown that a (strict) partial order is defined.
+		\paragraph{b)} For not negative vector components of V(a) and V(b) (for system events a and b) it holds $V(a)<V(b) \Leftrightarrow C(a)<C(b)$. The clock condition is $a \rightarrow b \Rightarrow C(a)<C(b)$. From lecture 8, slide 54 we know that $a \rightarrow b \Leftrightarrow V(a)<V(b)$ and in particular  $a \rightarrow b \Rightarrow V(a)<V(b)$. Hence also $a \rightarrow b \Rightarrow C(a)<C(b)$.
+		\paragraph{c)} For every pair of timestamps V(a) and V(b) it must hold either $V(a)<V(b), V(b)<V(a)$ or $V(a)||V(b)$. In the first two cases the time stamps can be ordered without consulting the proccess ID. In the third case they can be ordered by the definiton $V(a)<V(b)$ if the ID of the process that created a is smaller than the ID of the process that created b. This defines a total order because process IDs are unique. The clock condition is not affected by this extension.
 
 \end{document}
