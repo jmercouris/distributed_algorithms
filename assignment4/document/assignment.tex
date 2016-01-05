@@ -21,8 +21,14 @@
 
 \section*{Exercise 4.1: Physical Clocks}
   \subsection*{a)} % Synchronization
-  	\paragraph{a)}
-  	\paragraph{b)}
+  	\paragraph{a)} $50\%$ of the messages have delays $\leq 4ms$. Since we do not know anything about the probability distribution, we have to assume that the $50\%$ have delays $\geq U$. Thus, the computer has to perform 19 failed synchronization attempts such that the probability of a failed synchronization is lesser than~$10^{-6}$ since
+  	\[0.5^{19} \approx 1.9 \cdot 10^{-6} \] 
+  	and 
+  	\[ 0.5^{20} \approx 9.5 \cdot 10^{-7} .\]
+  	\paragraph{b)} The expected number of synchronization attempts in order to successfully perform the synchronization is 
+  	\[ E = \frac{1}{1-p} \]
+  	where $p$ is the probability that $D \geq U$ for an attempt. Assuming that $p=0.5$ (the worst case), this means that the expected number of synchronization attempts is
+  	\[ E = \frac{1}{0.5} = 2 .\]
   	\paragraph{c)}
   \subsection*{b)} % Clock condition
     \paragraph{a)} The local clocks my never be turned back and may never halt because otherwise an event A that happened after an event B could have an earlier or the same timestamp and therefore the order of events would not be preserved.
