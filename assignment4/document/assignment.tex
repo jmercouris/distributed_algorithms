@@ -30,6 +30,10 @@
   	where $p$ is the probability that $D \geq U$ for an attempt. Assuming that $p=0.5$ (the worst case), this means that the expected number of synchronization attempts is
   	\[ E = \frac{1}{0.5} = 2 .\]
   	\paragraph{c)}
+  	The minimal and maximal intervals of syncronisation are
+  	\[\triangle_{min} = \rho^{-1}(d-e_{max}) \] and
+  	\[\triangle_{max} = \rho^{-1}d\]
+  	With $e_{max} = D/2 - min$ lying in [0,2] and the worst case assumption we'd get $\triangle_{min} = 200s$ and $\triangle_{max} = 400s$. These are the intervals in which two successfull syncronisations should occur. For having the low chance of $10^{-6}$ of a falure in those intervals, at least 20 attempts (see part b) should be made.
   \subsection*{b)} % Clock condition
     \paragraph{a)} The local clocks my never be turned back and may never halt because otherwise an event A that happened after an event B could have an earlier or the same timestamp and therefore the order of events would not be preserved.
   	\paragraph{b)} Each pair of clocks must either show the same time or the difference must be known such that the order of events that happened on different machines can be determined.
