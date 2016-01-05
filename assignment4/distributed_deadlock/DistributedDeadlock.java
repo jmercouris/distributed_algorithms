@@ -6,10 +6,10 @@ import java.lang.Math;
 import java.awt.Color;
 
 /**
-* Group 11
-* Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
-* This class implements the Echo algorithm
-*/
+ * Group 11
+ * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
+ * This class implements the Echo algorithm
+ */
 public class DistributedDeadlock extends BasicAlgorithm{
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -32,12 +32,12 @@ public class DistributedDeadlock extends BasicAlgorithm{
 	id = (Integer) config.get("node.id");
 	caption = "" + id;
     
-    // Create a contrived example by prepopulating required, and owned resources
-    // Add a resource to the resource pool
-    ownedResources.add(new ExclusiveResource(id));
-    requiredResources.add(new ExclusiveResource(0));
-    requiredResources.add(new ExclusiveResource(1));
-    // End Contrived Example population
+	// Create a contrived example by prepopulating required, and owned resources
+	// Add a resource to the resource pool
+	ownedResources.add(new ExclusiveResource(id));
+	requiredResources.add(new ExclusiveResource(0));
+	requiredResources.add(new ExclusiveResource(1));
+	// End Contrived Example population
     }
 
     /**
@@ -69,14 +69,27 @@ public class DistributedDeadlock extends BasicAlgorithm{
         } else {
             // Initiate Diffusion Process to pre-empt and break potential deadlock
             System.out.println("Blocking, missing elements");
+            updateRequiredElements(ownedResources, requiredResources);
+            sendOne(new NetworkMessage(NetworkMessage.PROBE, id, id, requiredResources));
         }
     }
     /**
-    * Act on recieved messages, based on what TYPE of message they are
-    */ 
-    public void receive(int interf, Object message){
+     * Act on recieved messages, based on what TYPE of message they are
+     */ 
+    public void receive(int sendingInterface, Object message) {
+	// Cast Message to Network Message Object
+	NetworkMessage inputMessage = (NetworkMessage) message;
+	// Switch type of Message
+	switch (inputMessage.getType()) {
+	case NetworkMessage.PROBE:
+	    System.out.println("Received Probe");
+	    break;
+	}
     }
     
+    /**
+    * Print the status of a Node including listing all of its elements needed and owned
+    */
     public void printStatus() {
         System.out.println("Node: " + id);
         System.out.println("\tRequired: " + arrayListContents(requiredResources));
@@ -84,8 +97,8 @@ public class DistributedDeadlock extends BasicAlgorithm{
     }
     
     /**
-    * Generate a stirng that shows all of the contents of the arraylist
-    */
+     * Generate a string that shows all of the contents of the arraylist
+     */
     public String arrayListContents(List listA) {
         String tmp = "";
         for (Object element : listA) {
@@ -95,10 +108,52 @@ public class DistributedDeadlock extends BasicAlgorithm{
     }
     
     /**
-    * Helper method to compare arraylists
-    */
+     * Generate a list of the remaining elements that need to be captured, function has a side effect
+     * of settings requiredElements to the remaining needed elements
+     */
+    public void updateRequiredElements(List inputOwnedElements, List inputRequiredElements) {
+        // Remove all elements in firstList from secondList
+        inputRequiredElements.removeAll(inputOwnedElements);
+    }
+    
+    /**
+     * Helper method to compare arraylists
+     */
     public  boolean equalLists(List listA, List listB){     
         return (listA.containsAll(listB) && listB.containsAll(listA));
     }
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Helper Functions
+    ////////////////////////////////////////////////////////////////////////////////
+    // Convenience Method to send a message to all neighbors
+    public void sendAll(NetworkMessage inputMessage) { 
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    send(i, inputMessage);
+	}
+    }
+    // Convenience Method to send a message to all neighbors except one
+    public void sendAllExcept(NetworkMessage inputMessage, int exceptInterface) { 
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    if (i != exceptInterface) {
+		send(i, inputMessage);
+	    }
+	}
+    }
+    // Send to one node
+    public void sendOne(NetworkMessage inputMessage) {
+	send(0, inputMessage);
+    }
+
+    // Will send to the OTHER interface, thus forwarding a message
+    public void forwardMessage(NetworkMessage inputMessage, int inputSendingInterface) {
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    if (i != inputSendingInterface) {
+		send(i, inputMessage);
+	    }
+	}
+    }
+
+    // End class
     
 }
