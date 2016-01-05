@@ -101,4 +101,37 @@ public class DistributedDeadlock extends BasicAlgorithm{
         return (listA.containsAll(listB) && listB.containsAll(listA));
     }
     
+    ////////////////////////////////////////////////////////////////////////////////
+    // Helper Functions
+    ////////////////////////////////////////////////////////////////////////////////
+    // Convenience Method to send a message to all neighbors
+    public void sendAll(NetworkMessage inputMessage) { 
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    send(i, inputMessage);
+	}
+    }
+    // Convenience Method to send a message to all neighbors except one
+    public void sendAllExcept(NetworkMessage inputMessage, int exceptInterface) { 
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    if (i != exceptInterface) {
+		send(i, inputMessage);
+	    }
+	}
+    }
+    // Send to one node
+    public void sendOne(NetworkMessage inputMessage) {
+	send(0, inputMessage);
+    }
+
+    // Will send to the OTHER interface, thus forwarding a message
+    public void forwardMessage(NetworkMessage inputMessage, int inputSendingInterface) {
+	for (int i = 0; i < checkInterfaces(); i++) {
+	    if (i != inputSendingInterface) {
+		send(i, inputMessage);
+	    }
+	}
+    }
+
+    // End class
+    
 }
