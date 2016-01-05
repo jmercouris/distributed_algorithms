@@ -30,11 +30,27 @@ public class DistributedDeadlock extends BasicAlgorithm{
     }
 
     /**
-    * initiates the algorithm;
-    */
-    public void initiate(){
+     * The program loops the timeout method to control node behavior
+     */
+    public void initiate() {
+	// Initialize independent node loops
+	setTimeout(0, new Object());
+    }
+    
+    /**
+     * Handle timeouts - Schedule next interruption at random interval
+     */
+    public void timeout(Object inputObject) {
+	setTimeout(generator.nextInt(intervalDelayRange), new Object());
+	run();
     }
 
+    /**
+     * Node action, controlled by probability, run method gets called by setTimeout on a loop
+     */ 
+    public void run() { 
+        System.out.println("Entered Execution Loop.");
+    }
     /**
     * Act on recieved messages, based on what TYPE of message they are
     */ 
