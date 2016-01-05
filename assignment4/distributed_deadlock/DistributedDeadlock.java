@@ -1,4 +1,8 @@
 import teachnet.algorithm.BasicAlgorithm;
+import java.util.Random;
+import java.lang.Integer;
+import java.lang.Math;
+import java.awt.Color;
 
 /**
 * Group 11
@@ -7,45 +11,33 @@ import teachnet.algorithm.BasicAlgorithm;
 */
 public class DistributedDeadlock extends BasicAlgorithm{
 
-  boolean informed = false;
-  boolean initiator = false;
-  int activator;
-  int count = 0;
-  int markInterface =-1;
+    ////////////////////////////////////////////////////////////////////////////////
+    // Variable Declarations
+    ////////////////////////////////////////////////////////////////////////////////
+    int id; // ID of the node
+    String caption = ""; // String next to node
+    Random generator = new Random(); // Random number generator
+    int intervalDelayRange = 10; // Maximum delay time until next node execution
+    Color color; // Color of the node
 
-  /**
-  * initiates the algorithm;
-  * sends an explorer message to all neighbors and sets informed and initiator to true
-  */
-  public void initiate(){
-    for (int i = 0; i < checkInterfaces(); i++) {
-      send(i, "Explorer");
+    /**
+     * Method sets captions for all nodes to their ID, sets the weighted object up
+     * for node one
+     */
+    public void setup(java.util.Map<String, Object> config){
+	id = (Integer) config.get("node.id");
+	caption = "" + id;
     }
-    informed=true;
-    initiator=true;
-  }
 
-  /**
-  * sends out explorer messages to all neighbors if not yet informed
-  * sends echo to activator if all neighbors are informed
-  */
-  public void receive(int interf, Object message){
-    if(!informed){
-      for (int i = 0; i < checkInterfaces(); i++) { //flood
-        if(i != interf){
-           send(i, "Explorer");
-        }
-      }
-      informed = true;
-      activator = interf; // remember activator
-      markInterface = interf; // highlight spanning tree
+    /**
+    * initiates the algorithm;
+    */
+    public void initiate(){
     }
-    count++;
-    if(count == checkInterfaces()){ //all neighbours informed
-      if(!initiator){
-        send(activator,"Echo");
-      }
-      //no explicit exit possible in teachnet
+
+    /**
+    * Act on recieved messages, based on what TYPE of message they are
+    */ 
+    public void receive(int interf, Object message){
     }
-  }
 }
