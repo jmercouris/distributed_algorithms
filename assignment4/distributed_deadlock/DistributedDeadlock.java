@@ -64,11 +64,15 @@ public class DistributedDeadlock extends BasicAlgorithm{
         // Compare ownedResources to requiredResources, if the two lists are equal,
         // resume execution
         if (equalLists(ownedResources, requiredResources)) {
+            // Processing Complete Reinitialize variables
             System.out.println("Non blocking, all elements present");
+            blocked = false;
+            requiredResources = new ArrayList();
             
         } else {
             // Initiate Diffusion Process to pre-empt and break potential deadlock
             System.out.println("Blocking, missing elements");
+            blocked = true;
             updateRequiredElements(ownedResources, requiredResources);
             sendOne(new NetworkMessage(NetworkMessage.PROBE, id, id, requiredResources));
         }
@@ -81,9 +85,37 @@ public class DistributedDeadlock extends BasicAlgorithm{
 	NetworkMessage inputMessage = (NetworkMessage) message;
 	// Switch type of Message
 	switch (inputMessage.getType()) {
-	case NetworkMessage.PROBE:
-	    System.out.println("Received Probe");
-	    break;
+        // Diffusion Probe
+        case NetworkMessage.PROBE:
+            System.out.println("Received Probe");
+            // If we are the original sender, and we are blocked then we know we have deadlock
+            if (id == inputMessage.getRootSender() && blocked) {
+                System.out.println("Blocking Detected");
+                NetworkMessage tmpMessage = new NetworkMessage();
+                tmpMessage.setType(NetworkMessage.PREEMPTION);
+                tmpMessage.setRootSender(id);
+                tmpMessage.setExclusiveResources(requiredResources);
+                sendOne(tmpMessage);
+            }
+            // If we are blocked and the message has not made a round trip forward
+            else if (blocked) {
+                updateRequiredElements(ownedResources, requiredResources);
+                forwardMessage(new NetworkMessage(NetworkMessage.PROBE, inputMessage.getRootSender(), id, requiredResources), sendingInterface);
+                System.out.println(new NetworkMessage(NetworkMessage.PROBE, inputMessage.getRootSender(), id, requiredResources).toString());
+            }
+            break;
+        // Preemption Message to break deadlock
+        case NetworkMessage.PREEMPTION:
+        // If we are not the original requester, Preempt and release resources to break deadlock
+        if (id != inputMessage.getRootSender()) {
+            ownedResources.removeAll(inputMessage.getExclusiveResources());
+        } 
+        // If we are the original sender, then we know that the message has made a round trip
+        // Meaning all necessary resources have been released, and we can resume execution
+        else {
+            ownedResources.add(requiredResources);
+        }
+            break;
 	}
     }
     

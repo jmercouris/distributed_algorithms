@@ -2,7 +2,7 @@
 
 teachnet.util.RandomRingGenerator
 
-n=java.lang.Integer:2
+n=java.lang.Integer:3
 
 [network]
 

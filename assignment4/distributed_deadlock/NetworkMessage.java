@@ -5,7 +5,8 @@ import java.util.*;
  * Network Message class, this class is used to send messages between nodes in the system
  */
 public class NetworkMessage {
-    public static final int PROBE = 0;           // Probe for Usage
+    public static final int PROBE = 0;           // Probe for diffusion
+    public static final int PREEMPTION = 1;      // Preemption code to give up resource and break lock
     String stringMessage = "";
     int value = -1;
     int type = -1; // The type of message, used by the node recieve method to determine a course of action, initializes to invalid value
@@ -61,17 +62,35 @@ public class NetworkMessage {
         sender = inputSender;
         exclusiveResources = inputExclusiveResource;
     }
-    
-    
+        
     public int getType() {
         return type;
+    }
+    
+    public void setType(int inputType) {
+        type = inputType;
+    }
+    
+    public int getRootSender() {
+        return rootSender;
     }
     
     public void setSender(int inputSender) {
         sender = inputSender;
     }
+    
+    public void setRootSender(int inputRootSender){
+        rootSender = inputRootSender;
+    }
+    public void setExclusiveResources(ArrayList inputExclusiveResources) {
+        exclusiveResources = inputExclusiveResources;
+    }
+    
+    public List getExclusiveResources() {
+        return exclusiveResources;
+    }
 
     public String toString() {
-        return "" + value;
+        return "Root Sender: " + rootSender + " Sender: " + sender + " Recipient: " + recipient;
     }
 }
