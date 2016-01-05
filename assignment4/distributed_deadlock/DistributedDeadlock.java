@@ -5,7 +5,7 @@ import teachnet.algorithm.BasicAlgorithm;
 * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
 * This class implements the Echo algorithm
 */
-public class Implementation extends BasicAlgorithm{
+public class DistributedDeadlock extends BasicAlgorithm{
 
   boolean informed = false;
   boolean initiator = false;

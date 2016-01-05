@@ -13,7 +13,7 @@ delay.max=java.lang.Double:2.0
 
 [stack.algorithms]
 
-Implementation
+DistributedDeadlock
 
 [stack.configs]
 0.node.id=java.lang.String:$node.id
