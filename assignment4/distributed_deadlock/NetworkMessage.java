@@ -19,23 +19,30 @@ public class NetworkMessage {
     }
 
     public NetworkMessage(String inputString) {
-	stringMessage = inputString;
-    }
-
-    public NetworkMessage(String inputString, int inputValue) {
-	stringMessage = inputString;
-	value = inputValue;
+        stringMessage = inputString;
     }
 
     public NetworkMessage(int inputValue) {
-	value = inputValue;
+        value = inputValue;
+    }
+
+    public NetworkMessage(String inputString, int inputValue) {
+        stringMessage = inputString;
+        value = inputValue;
+    }
+
+    public NetworkMessage(int inputRootSender, int inputSender, int inputRecipient, ExclusiveResource inputExclusiveResource){
+        rootSender = inputRootSender;
+        sender = inputSendr;
+        recipient = inputRecipient;
+        exclusiveResource = inputExclusiveResource
     }
     
     public int getType() {
-	return type;
+        return type;
     }
 
     public String toString() {
-	return "" + value;
+        return "" + value;
     }
 }
