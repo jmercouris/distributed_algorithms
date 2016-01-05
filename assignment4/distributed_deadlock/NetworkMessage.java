@@ -1,17 +1,23 @@
+import java.awt.Color;
+
 /*
  * Network Message class, this class is used to send messages between nodes in the system
  */
 public class NetworkMessage {
+    public static final int PROBE = 0;           // Probe for Usage
     String stringMessage = "";
     int value = -1;
-    boolean maximumValue = false;
+    int type = -1; // The type of message, used by the node recieve method to determine a course of action, initializes to invalid value
+    
 
     public NetworkMessage() {
 
     }
+
     public NetworkMessage(String inputString) {
 	stringMessage = inputString;
     }
+
     public NetworkMessage(String inputString, int inputValue) {
 	stringMessage = inputString;
 	value = inputValue;
@@ -20,9 +26,9 @@ public class NetworkMessage {
     public NetworkMessage(int inputValue) {
 	value = inputValue;
     }
-    public NetworkMessage(int inputValue, boolean inputMaximumValue) {
-	value = inputValue;
-	maximumValue = inputMaximumValue;
+    
+    public int getType() {
+	return type;
     }
 
     public String toString() {

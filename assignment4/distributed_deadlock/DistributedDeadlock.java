@@ -38,7 +38,6 @@ public class DistributedDeadlock extends BasicAlgorithm{
     requiredResources.add(new ExclusiveResource(0));
     requiredResources.add(new ExclusiveResource(1));
     // End Contrived Example population
-    
     }
 
     /**
@@ -84,6 +83,9 @@ public class DistributedDeadlock extends BasicAlgorithm{
         System.out.println("\tOwned: " + arrayListContents(ownedResources));
     }
     
+    /**
+    * Generate a stirng that shows all of the contents of the arraylist
+    */
     public String arrayListContents(List listA) {
         String tmp = "";
         for (Object element : listA) {
@@ -92,7 +94,9 @@ public class DistributedDeadlock extends BasicAlgorithm{
         return tmp;
     }
     
-    // Helper method to compare arraylists
+    /**
+    * Helper method to compare arraylists
+    */
     public  boolean equalLists(List listA, List listB){     
         return (listA.containsAll(listB) && listB.containsAll(listA));
     }
