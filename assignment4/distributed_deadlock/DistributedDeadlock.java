@@ -1,6 +1,7 @@
 import teachnet.algorithm.BasicAlgorithm;
 import java.util.Random;
 import java.lang.Integer;
+import java.util.*;
 import java.lang.Math;
 import java.awt.Color;
 
@@ -19,6 +20,9 @@ public class DistributedDeadlock extends BasicAlgorithm{
     Random generator = new Random(); // Random number generator
     int intervalDelayRange = 10; // Maximum delay time until next node execution
     Color color; // Color of the node
+    boolean blocked = false;
+    ArrayList requiredResources = new ArrayList();
+    ArrayList ownedResources = new ArrayList();
 
     /**
      * Method sets captions for all nodes to their ID, sets the weighted object up
@@ -27,6 +31,8 @@ public class DistributedDeadlock extends BasicAlgorithm{
     public void setup(java.util.Map<String, Object> config){
 	id = (Integer) config.get("node.id");
 	caption = "" + id;
+    // Add a resource to the resource pool
+    ownedResources.add(new ExclusiveResource(id));
     }
 
     /**
@@ -49,11 +55,37 @@ public class DistributedDeadlock extends BasicAlgorithm{
      * Node action, controlled by probability, run method gets called by setTimeout on a loop
      */ 
     public void run() { 
-        System.out.println("Entered Execution Loop.");
+        printStatus();
+        // Compare ownedResources to requiredResources, if the two lists are equal,
+        // resume execution
+        if (equalLists(ownedResources, requiredResources)) {
+            System.out.println("Non blocking, all elements present");
+            
+        }
     }
     /**
     * Act on recieved messages, based on what TYPE of message they are
     */ 
     public void receive(int interf, Object message){
     }
+    
+    public void printStatus() {
+        System.out.println("Node: " + id);
+        System.out.println("\tRequired: " + arrayListContents(requiredResources));
+        System.out.println("\tOwned: " + arrayListContents(ownedResources));
+    }
+    
+    public String arrayListContents(List listA) {
+        String tmp = "";
+        for (Object element : listA) {
+            tmp += element.toString();
+        }
+        return tmp;
+    }
+    
+    // Helper method to compare arraylists
+    public  boolean equalLists(List listA, List listB){     
+        return (listA.containsAll(listB) && listB.containsAll(listA));
+    }
+    
 }
