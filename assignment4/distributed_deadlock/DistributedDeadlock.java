@@ -31,8 +31,14 @@ public class DistributedDeadlock extends BasicAlgorithm{
     public void setup(java.util.Map<String, Object> config){
 	id = (Integer) config.get("node.id");
 	caption = "" + id;
+    
+    // Create a contrived example by prepopulating required, and owned resources
     // Add a resource to the resource pool
     ownedResources.add(new ExclusiveResource(id));
+    requiredResources.add(new ExclusiveResource(0));
+    requiredResources.add(new ExclusiveResource(1));
+    // End Contrived Example population
+    
     }
 
     /**
@@ -61,6 +67,9 @@ public class DistributedDeadlock extends BasicAlgorithm{
         if (equalLists(ownedResources, requiredResources)) {
             System.out.println("Non blocking, all elements present");
             
+        } else {
+            // Initiate Diffusion Process to pre-empt and break potential deadlock
+            System.out.println("Blocking, missing elements");
         }
     }
     /**
