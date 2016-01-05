@@ -89,7 +89,7 @@ public class DistributedDeadlock extends BasicAlgorithm{
     public String arrayListContents(List listA) {
         String tmp = "";
         for (Object element : listA) {
-            tmp += element.toString();
+            tmp += element.toString() + ",";
         }
         return tmp;
     }

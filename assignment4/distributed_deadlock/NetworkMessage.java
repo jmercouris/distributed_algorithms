@@ -8,7 +8,11 @@ public class NetworkMessage {
     String stringMessage = "";
     int value = -1;
     int type = -1; // The type of message, used by the node recieve method to determine a course of action, initializes to invalid value
-    
+    // Variables needed for Chandy Misra Haas Probe
+    int rootSender; // The Id of the originally sending node
+    int sender; // The Id of the most recent sending node
+    int recipient; // The Id of the intended recipient
+    ExclusiveResource exclusiveResource; // The required resource object
 
     public NetworkMessage() {
 
