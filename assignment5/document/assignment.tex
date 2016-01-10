@@ -1,0 +1,51 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+\begin{center}
+  \Large Assignment  \\
+  \large Distributed Algorithms
+\end{center}
+\begin{flushright}
+  \begin{tabular}{ll}
+    \textbf{Group 11} \\
+    Dan Drewes        \\ 
+    Manuela Hopp      \\ 
+    John Mercouris    \\
+    Malte Siemers     \\
+  \end{tabular} 
+\end{flushright}
+
+
+\section*{Exercise 4.1: Physical Clocks}
+  \subsection*{a)} % Synchronization
+  	\paragraph{a)} $50\%$ of the messages have delays $\leq 4ms$. Since we do not know anything about the probability distribution, we have to assume that the $50\%$ have delays $\geq U$. Thus, the computer has to perform 19 failed synchronization attempts such that the probability of a failed synchronization is lesser than~$10^{-6}$ since
+  	\[0.5^{19} \approx 1.9 \cdot 10^{-6} \] 
+  	and 
+  	\[ 0.5^{20} \approx 9.5 \cdot 10^{-7} .\]
+  	\paragraph{b)} The expected number of synchronization attempts in order to successfully perform the synchronization is 
+  	\[ E = \frac{1}{1-p} \]
+  	where $p$ is the probability that $D \geq U$ for an attempt. Assuming that $p=0.5$ (the worst case), this means that the expected number of synchronization attempts is
+  	\[ E = \frac{1}{0.5} = 2 .\]
+  	\paragraph{c)}
+  	The minimal and maximal intervals of syncronisation are
+  	\[\triangle_{min} = \rho^{-1}(d-e_{max}) \] and
+  	\[\triangle_{max} = \rho^{-1}d\]
+  	With $e_{max} = D/2 - min$ lying in [0,2] and the worst case assumption we'd get $\triangle_{min} = 200s$ and $\triangle_{max} = 400s$. These are the intervals in which two successfull syncronisations should occur. For having the low chance of $10^{-6}$ of a falure in those intervals, at least 20 attempts (see part b) should be made.
+  \subsection*{b)} % Clock condition
+    \paragraph{a)} The local clocks my never be turned back and may never halt because otherwise an event A that happened after an event B could have an earlier or the same timestamp and therefore the order of events would not be preserved.
+  	\paragraph{b)} Each pair of clocks must either show the same time or the difference must be known such that the order of events that happened on different machines can be determined.
+  	\paragraph{c)} It cannot be determined from the timestamps alone whether two events causally depend on each other. Therefore, the utilization of physical clocks does not fulfill the converse of the clock condition.
+  	
+\section{Exercise 4.2: Vector Clocks}
+	\subsection*{a)} % Causal Order
+	If we would use the vectors as applied by the causal broadcast without sending messages to every process, a lot of the messages would not fulfill the (second part of the) delivery condition and might never be delivered because messages from other processes are missing and will never arrive because they are not sent at all. The delivery condition is neccessary because it ensures "that the messages are delivered in an order
+	satisfying causality" [lecture 08, slide 59].
+	\subsection*{b)} % Order Relation
+		\paragraph{a)} Because the "less than"-relation is a strict but not a total order, we have to show that it holds transitivity in the set of system events. Let e,f and g be three system events and assume it holds $V(e)<V(f)$, $V(f)<V(g)$ and hence $C(e)<C(f)$ and $C(f)<C(g)$. From slide 54, lecture 8 it follows that $e \rightarrow f$ and $f \rightarrow g$ and obviously this leads to $e \rightarrow g$ which is equivalent to $V(e)<V(g)$. Thus, it holds $C(e)<C(g)$ and because e,f and g were arbitrary we have shown that a (strict) partial order is defined.
+		\paragraph{b)} For not negative vector components of V(a) and V(b) (for system events a and b) it holds $V(a)<V(b) \Leftrightarrow C(a)<C(b)$. The clock condition is $a \rightarrow b \Rightarrow C(a)<C(b)$. From lecture 8, slide 54 we know that $a \rightarrow b \Leftrightarrow V(a)<V(b)$ and in particular  $a \rightarrow b \Rightarrow V(a)<V(b)$. Hence also $a \rightarrow b \Rightarrow C(a)<C(b)$.
+		\paragraph{c)} For every pair of timestamps V(a) and V(b) it must hold either $V(a)<V(b), V(b)<V(a)$ or $V(a)||V(b)$. In the first two cases the time stamps can be ordered without consulting the proccess ID. In the third case they can be ordered by the definiton $V(a)<V(b)$ if the ID of the process that created a is smaller than the ID of the process that created b. This defines a total order because process IDs are unique. The clock condition is not affected by this extension.
+
+\end{document}
