@@ -1,0 +1,29 @@
+[graph.random]
+
+teachnet.util.FullyMeshedGraphGenerator
+
+n=java.lang.Integer:7
+
+[network]
+
+teachnet.network.LinearDelayNetwork
+
+delay.min=java.lang.Double:1.0
+delay.max=java.lang.Double:1.0
+#The algorithm is based on the synchronous model.
+#Thus, the above makes sure messages need exactly 1 time unit to arive.
+
+[stack.algorithms]
+
+Byzantine
+
+[stack.configs]
+
+0.node.id=java.lang.String:$node.id
+0.network.size=java.lang.String:$network.size
+0.m=java.lang.Integer:2
+0.commanderIsFaulty=java.lang.Integer:0
+
+[inits]
+
+0,0,0.0
