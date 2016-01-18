@@ -23,33 +23,39 @@
 
 \section*{Exercise 5.1: Byzantine Generals}
 \begin{enumerate}
+% Describe the agreement of the byzantine generals and explain the recursive algorithm for oral messages.
 \item[a)] Placeholder Text
-
-\item[b)] Placeholder Text 
+\item[b)]
   \begin{enumerate}
-  \item[(a)] Placeholder Text
-  \item[(b)] Placeholder Text
-  \item[(c)] Placeholder text
+  % n = 4 (4 generals), m = 1 (one randomly chosen general is faulty)
+  \item[(a)] Text
+  % n = 7 (7 generals), m = 2 (two randomly chosen generals are faulty).
+  \item[(b)] Text
+  % n = 10 (10 generals), m = 3 (three randomly chosen generals are faulty).
+  \item[(c)] Text
   \end{enumerate}
 \end{enumerate}
 
 \section*{Exercise 5.2: Self-Stabilizing Spanning Tree}
 \begin{enumerate}
 
-\item[a)] Text
+\item[a)] What is the behavior of the algorithm in case of the following faults:
   \begin{itemize}
-  \item first
-  \item second
-  \item third
+  \item Failure or reintegration of nodes or links:
+  \item Corruption of local data structures:
+  \item Corruption or loss of messages:
   \end{itemize}
-
+% In large dynamic systems, changes of the topologies are not an unusual behavior, but rather normal. What is the impact on the proposed algorithm?
 \item[b)] Text
-
-\item[c)] Text
+% Implement the selfstabilizing spanning tree algorithm! Use setTimeout(..) and timeout(..) in order to realize heartbeats.
+\item[c)]
   \begin{enumerate}
-  \item[(a)] Placeholder Text
-  \item[(b)] Placeholder Text
-  \item[(c)] Placeholder text
+  % Choose an appropriate value for the timeout and explain why.
+  \item[(a)] Text
+  % Simulate node failures after a configurable amount of time (at least one node failure). Timeouts could be used for this as well: In this case, after the timeout appeared, the node will be silent from now on, i.e., it swallows all incoming messages and stays calm (no heartbeats).
+  \item[(b)] Text
+  % Simulate that the faulty nodes recover from their faulty state and reintegrate themselves in the network. Simulate at least one node reintegration.
+  \item[(c)] Text
   \end{enumerate}
 \end{enumerate}
 
