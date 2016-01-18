@@ -7,12 +7,12 @@ public class NetworkMessage {
 	
 	Color color;//indicates if corrupted (red) or not (green)
 	boolean isCorrupted;
-    String stringMessage = "";
+	int[] messagePath;
     int value = -1;
 
-    public NetworkMessage(int inputValue, String inputString, boolean inputIsCorrupted) {
+    public NetworkMessage(int inputValue, int[] path, boolean inputIsCorrupted) {
 		value = inputValue;
-		stringMessage = inputString;
+		messagePath=path;
 		isCorrupted=inputIsCorrupted;
 		if(isCorrupted){
 			color=new Color(255,0,0);
@@ -21,13 +21,17 @@ public class NetworkMessage {
 		}
     }
 	
-	 public NetworkMessage(int inputValue, String inputString, Color c) {
+	 public NetworkMessage(int inputValue, int[] path, Color c) {
 		value = inputValue;
-		stringMessage = inputString;
+		messagePath=path;
 		color=c;
     }
 
     public String toString() {
-	return stringMessage + " --> " + value;
+		String result="";
+		for(int i=0;i<messagePath.length-1;i++){
+			result+=messagePath[i]+" : ";
+		}
+		return result + messagePath[messagePath.length-1]+" --> " + value;
     }
 }
