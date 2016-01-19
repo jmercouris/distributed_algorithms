@@ -1,5 +1,6 @@
 import teachnet.algorithm.BasicAlgorithm;
 import java.awt.Color;
+import java.util.Random;
 
 /**
  * Group 11
@@ -27,7 +28,10 @@ public class SpanningTree extends BasicAlgorithm{
     Color color = defaultColor;
     int nodeStatus = STATUS_DEFAULT;
     boolean heartbeatReceived;
-        
+
+    // Random number generator, used for arbitrary failure
+    Random generator = new Random();
+    
     // Relational Information
     int id = 0;
     int rootNode = 0;
@@ -67,6 +71,14 @@ public class SpanningTree extends BasicAlgorithm{
      * Handle timeouts - Schedule next interruption at interval
      */
     public void timeout(Object inputObject) {
+	// Randomly set Status to Failure
+	if (generator.nextInt(100) > 95) {
+	    nodeStatus = STATUS_FAULTY;
+	}
+	// Randomly set Status to Valid
+	if (generator.nextInt(100) > 95 && nodeStatus != STATUS_ROOT){
+	    nodeStatus = STATUS_DEFAULT;
+	}
 	// If we are the root node we must set our heartbeat interval
 	if (nodeStatus == STATUS_ROOT) {
 	    setTimeout(HEARTBEAT_INTERVAL, new Object());
@@ -77,6 +89,7 @@ public class SpanningTree extends BasicAlgorithm{
 	    setTimeout((MAX_LEVEL_DELAY * treeLevel) + HEARTBEAT_INTERVAL, new Object());
 	}
 	run();
+	updateColorStatus();
     }
 
     /**
@@ -95,9 +108,16 @@ public class SpanningTree extends BasicAlgorithm{
 
 	// We've encountered a timeout as not Root, this means
 	// messages have not reached us in enough time, the network
-	// is possibly broken
+	// is possibly broken!!!
 	if (nodeStatus != STATUS_ROOT && heartbeatReceived == false) {
 	    System.out.println("Timeout " + id);
+	    NetworkMessage message = new NetworkMessage();
+	    message.setType(NetworkMessage.ELECTION);
+	    message.senderNode = id;
+	    message.rootNode = id;
+	    message.treeLevel = 0;
+	    sendAll(message);
+
 	} else {
 	    // Reset heartbeatRecieved Flag for next iteration
 	    heartbeatReceived = false;
@@ -108,6 +128,10 @@ public class SpanningTree extends BasicAlgorithm{
      * Receive Messages
      */
     public void receive(int sendingInterface, Object message) {
+	// If we are "Faulty" Break, we don't react to anything
+	if (nodeStatus == STATUS_FAULTY) {
+	    return;
+	}
 	// Cast Message to Network Message Object
 	NetworkMessage inputMessage = (NetworkMessage) message;
 	switch (inputMessage.getType()) {
