@@ -24,15 +24,15 @@
 \section*{Exercise 5.1: Byzantine Generals}
 \begin{enumerate}
 % Describe the agreement of the byzantine generals and explain the recursive algorithm for oral messages.
-\item[a)] Text
+\item[a)] The aggreement of the byzantine generals discribes a set of problems of message based communication. For a set of communicating entities, i.e. processes in a distributed system, some difficulties arise when they try to find a consensus or a majority of a vote if faulty processes, message loss or delay are taken into account. The algorithm discribed in the  lecture solves the problem of faulty nodes. For a set of n = 3m+1 processes, m being the amount of tolerated faulty processes, it can be shown that the non faulty processes can find a common decision. A commanding process sends a message, 0 or 1, to every other process and  they then relay the message to every other process that didnt receive that specific message yet, excluding the commander. For three processes and one commander, one of which is faulty, the relay has to happen only once for a consensus, for every note then received three instances of the message of which one is faulty. For n = 3m+1 processes messages must be relayed m times in a recursive way, meaning the message invokes an other instance of it self upon reception if it wasnt relayed m times yet. Every process then has a tree of messages that routed through the network one way or the other and decides for the command occuring mostly in its tree.
 \item[b)]
   \begin{enumerate}
   % n = 4 (4 generals), m = 1 (one randomly chosen general is faulty)
-  \item[(a)] Text
+  \item[(a)] -
   % n = 7 (7 generals), m = 2 (two randomly chosen generals are faulty).
-  \item[(b)] Text
+  \item[(b)] -
   % n = 10 (10 generals), m = 3 (three randomly chosen generals are faulty).
-  \item[(c)] Text
+  \item[(c)] -
   \end{enumerate}
 \end{enumerate}
 
