@@ -67,7 +67,7 @@ public class SpanningTree extends BasicAlgorithm{
      */
     public void timeout(Object inputObject) {
 	// Randomly set Status to Failure
-	if (generator.nextInt(100) > 80) {
+	if (generator.nextInt(100) > 95) {
 	    nodeStatus = STATUS_FAULTY;
 	}
 	// Randomly set Status to Valid
