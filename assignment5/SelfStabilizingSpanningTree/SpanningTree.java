@@ -81,15 +81,17 @@ public class SpanningTree extends BasicAlgorithm{
 		sendAllExcept(tmpMessage, sendingInterface);
 	    }
 	    // If we have the same Root Node ID then we agree
-	    if (inputMessage.rootNode == rootNode) {
-		
-	    }
+	    if (inputMessage.rootNode == rootNode) {}
 	    // If we are lower than the Node advertised, Ignore
-	    if (inputMessage.rootNode > rootNode) {
-		
-	    }
+	    if (inputMessage.rootNode > rootNode) {}
+
+	    // If the Declared rootNode ID is not equal to our own ID, we aren't Root
 	    if (rootNode != id) {
 		nodeStatus = STATUS_DEFAULT;
+	    }
+	    // If the rootNode is equal to our own ID, we are Root
+	    if (rootNode == id) {
+		nodeStatus = STATUS_ROOT;
 	    }
 
 	    break;
