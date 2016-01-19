@@ -4,6 +4,7 @@ import java.awt.Color;
 /**
  * Group 11
  * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
+ * Election based on lowest ID
  */
 public class SpanningTree extends BasicAlgorithm{
 
@@ -17,7 +18,7 @@ public class SpanningTree extends BasicAlgorithm{
     
     // Relational Information
     int id = 0;
-    int rootID = 0;
+    int rootNode = 0;
     int treeLevel = 0;
     int parentNode = 0;
 
@@ -26,7 +27,10 @@ public class SpanningTree extends BasicAlgorithm{
      */
     public void setup(java.util.Map<String, Object> config)
     {
+	// Setup our IDs
 	id = (Integer) config.get("node.id");
+	// Default to ourselves as root
+	rootNode = id;
 	updateCaption();
     }
     
@@ -34,12 +38,12 @@ public class SpanningTree extends BasicAlgorithm{
      * initiates the algorithm
      */
     public void initiate() {
-	NetworkMessage msg = new NetworkMessage();
-	msg.setType(NetworkMessage.ELECTION);
-	msg.senderNode = id;
-	msg.rootNode = id;
-	msg.treeLevel = 0;
-	sendAll(msg);
+	NetworkMessage message = new NetworkMessage();
+	message.setType(NetworkMessage.ELECTION);
+	message.senderNode = id;
+	message.rootNode = id;
+	message.treeLevel = 0;
+	sendAll(message);
     }
 
     /**
@@ -54,8 +58,13 @@ public class SpanningTree extends BasicAlgorithm{
 	    break;
 	// Attempting to Elect
 	case NetworkMessage.ELECTION:
-
-
+	    // If the New Root Node ID lower than our current, REPLACE
+	    if (inputMessage.rootNode < rootNode) {
+	
+	    }
+	    // If we have the same Root Node ID then we agree
+	    if (inputMessage.rootNode == rootNode) {
+	    }
 
 	    break;
 	}
@@ -69,7 +78,7 @@ public class SpanningTree extends BasicAlgorithm{
     ////////////////////////////////////////////////////////////////////////////////
     public void updateCaption() {
 	caption = "<" + id + ">→" +
-	    "<" +  rootID + ", " + treeLevel + ", " + parentNode + ">";
+	    "<" +  rootNode + ", " + treeLevel + ", " + parentNode + ">";
     }
     
     ////////////////////////////////////////////////////////////////////////////////
