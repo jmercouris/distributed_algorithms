@@ -80,12 +80,9 @@ public class SpanningTree extends BasicAlgorithm{
 	    message.setType(NetworkMessage.HEARTBEAT);
 	    message.senderNode = id;
 	    message.rootNode = id;
-	    message.treeLevel = 0;
 	    sendAll(message);
 	}
-	
     }
-
 
     /**
      * Receive Messages
@@ -132,6 +129,15 @@ public class SpanningTree extends BasicAlgorithm{
 	////////////////////////////////////////
 	// Case Heartbeat
 	case NetworkMessage.HEARTBEAT:
+	    // Only act upon messages from your parent
+	    if (inputMessage.senderNode == parentNode) {
+		NetworkMessage tmp0message = new NetworkMessage();
+		tmp0message.setType(NetworkMessage.HEARTBEAT);
+		tmp0message.senderNode = id;
+		tmp0message.rootNode = rootNode;
+
+		sendAllExcept(tmp0message, sendingInterface);
+	    }
 	    break;
 	////////////////////////////////////////
 	// Default Case

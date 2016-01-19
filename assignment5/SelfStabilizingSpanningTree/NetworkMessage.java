@@ -51,6 +51,6 @@ public class NetworkMessage {
     }
 
     public String toString() {
-	return "" + value;
+	return "Sender: " + senderNode;
     }
 }
