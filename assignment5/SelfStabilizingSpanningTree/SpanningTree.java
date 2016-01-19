@@ -24,6 +24,7 @@ public class SpanningTree extends BasicAlgorithm{
      */
     public void initiate(){
 	updateCaption();
+	sendAll(new NetworkMessage());
     }
 
     /**
