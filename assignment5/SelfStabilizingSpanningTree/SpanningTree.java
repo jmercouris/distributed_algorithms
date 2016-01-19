@@ -14,6 +14,10 @@ public class SpanningTree extends BasicAlgorithm{
     public static final int STATUS_FAULTY = 2;
     public static final int HEARTBEAT_INTERVAL = 5;
 
+    // Maximum Delay between levels
+    int MIN_LEVEL_DELAY = 1;
+    int MAX_LEVEL_DELAY = 2;
+
     // Caption Next to Node
     String caption = "<0>→<0, 0, 0>";
     // Color of the Node - Default Black
@@ -22,6 +26,7 @@ public class SpanningTree extends BasicAlgorithm{
     Color faultyColor = Color.RED;
     Color color = defaultColor;
     int nodeStatus = STATUS_DEFAULT;
+    boolean heartbeatReceived;
         
     // Relational Information
     int id = 0;
@@ -58,8 +63,8 @@ public class SpanningTree extends BasicAlgorithm{
 	setTimeout(0, new Object());
     }
 
-        /**
-     * Handle timeouts - Schedule next interruption at random interval
+    /**
+     * Handle timeouts - Schedule next interruption at interval
      */
     public void timeout(Object inputObject) {
 	// If we are the root node we must set our heartbeat interval
@@ -69,7 +74,7 @@ public class SpanningTree extends BasicAlgorithm{
 	// If we are NOT the root node, we set our timeout based on our
 	// level in the tree and the maximum message delay between tree levels
 	if (nodeStatus != STATUS_ROOT) {
-
+	    setTimeout((MAX_LEVEL_DELAY * treeLevel) + HEARTBEAT_INTERVAL, new Object());
 	}
 	run();
     }
@@ -91,8 +96,11 @@ public class SpanningTree extends BasicAlgorithm{
 	// We've encountered a timeout as not Root, this means
 	// messages have not reached us in enough time, the network
 	// is possibly broken
-	if (nodeStatus != STATUS_ROOT) {
-	    
+	if (nodeStatus != STATUS_ROOT && heartbeatReceived == false) {
+	    System.out.println("Timeout " + id);
+	} else {
+	    // Reset heartbeatRecieved Flag for next iteration
+	    heartbeatReceived = false;
 	}
     }
 
@@ -149,6 +157,7 @@ public class SpanningTree extends BasicAlgorithm{
 		tmp0message.rootNode = rootNode;
 
 		sendAllExcept(tmp0message, sendingInterface);
+		heartbeatReceived = true;
 	    }
 	    break;
 	////////////////////////////////////////
