@@ -46,16 +46,16 @@
   \item Corruption or loss of messages: When messages are corrupt or lost, the timeout in nodes will be triggered forcing a re-election. If messages eventually can make it through, then the network will heal itself into its' original state. The only downside will be that messages were sent with the intent of a reorganization of the span structure when it was not necessary. If it is shown that the timeout is persistent, or a consistent failure, the network will again heal itself by forming a new spanning tree to account for the unreachable set of nodes.
   \end{itemize}
 % In large dynamic systems, changes of the topologies are not an unusual behavior, but rather normal. What is the impact on the proposed algorithm?
-\item[b)] Text
+\item[b)] The tree will potentially need to rearrange itself if the topology severs critical node connections that constitute the spanning tree. If, on the other hand the topology changes and we remove all connections that are not relevant to the spanning tree, AKA all links that are not spanning tree links, then we will be able to maintain the spanning tree without reorganization. In the event of a topology reorganization that breaks the spanning tree, the algorithm will detect this after the timeout and reissue an election which will restructure the tree as well.
 % Implement the selfstabilizing spanning tree algorithm! Use setTimeout(..) and timeout(..) in order to realize heartbeats.
 \item[c)]
   \begin{enumerate}
   % Choose an appropriate value for the timeout and explain why.
-  \item[(a)] Text
+  \item[(a)] The timeout is based on the number of levels to the root node and the maximally tolerated delay for a message to send. The delay is configurable in the teachnet configuration. For example, if our maximum delay that we'll tolerate between two nodes is 30ms, and we find that we are on the 3rd level of the tree, and we know that heartbeats occur every 10ms, we will have a timeout of 100ms. This will allow for the heartbeat to be initiated, and all delays between all nodes to the sending node to be at their maximum, and then to finally recieve a message before the next one is triggered, assuming worst case after worst case scenario.
   % Simulate node failures after a configurable amount of time (at least one node failure). Timeouts could be used for this as well: In this case, after the timeout appeared, the node will be silent from now on, i.e., it swallows all incoming messages and stays calm (no heartbeats).
-  \item[(b)] Text
+  \item[(b)] -
   % Simulate that the faulty nodes recover from their faulty state and reintegrate themselves in the network. Simulate at least one node reintegration.
-  \item[(c)] Text
+  \item[(c)] -
   \end{enumerate}
 \end{enumerate}
 
