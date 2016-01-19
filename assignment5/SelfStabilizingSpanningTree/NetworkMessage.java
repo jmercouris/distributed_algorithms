@@ -6,9 +6,9 @@ import java.awt.Color;
 public class NetworkMessage {
 
     // Static Message Types
-    public static final int PROBE = 0;           // Probe for diffusion
-    public static final int ELECTION = 1;        // Probe for Election
-
+    public static final int PROBE = 0;           // Message Probe for diffusion
+    public static final int ELECTION = 1;        // Message for Election
+    public static final int HEARTBEAT = 2;       // Message for Heartbeat
 
     // Used for External Rendering
     Color color = Color.WHITE;
@@ -38,6 +38,8 @@ public class NetworkMessage {
 	case ELECTION:
 	    color = Color.GREEN;
 	    break;
+	case HEARTBEAT:
+	    color = Color.RED;
 	default:
 	    color = Color.BLACK;
 	    break;

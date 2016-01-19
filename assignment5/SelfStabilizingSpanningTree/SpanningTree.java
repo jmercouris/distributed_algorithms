@@ -12,6 +12,7 @@ public class SpanningTree extends BasicAlgorithm{
     public static final int STATUS_DEFAULT = 0;
     public static final int STATUS_ROOT = 1;
     public static final int STATUS_FAULTY = 2;
+    public static final int HEARTBEAT_INTERVAL = 10;
 
     // Caption Next to Node
     String caption = "<0>→<0, 0, 0>";
@@ -52,7 +53,39 @@ public class SpanningTree extends BasicAlgorithm{
 	message.rootNode = id;
 	message.treeLevel = 0;
 	sendAll(message);
+
+	// Initialize Timeout Loop
+	setTimeout(0, new Object());
     }
+
+        /**
+     * Handle timeouts - Schedule next interruption at random interval
+     */
+    public void timeout(Object inputObject) {
+	// If we are the root node we must set our heartbeat interval
+	if (nodeStatus == STATUS_ROOT) {
+	    setTimeout(HEARTBEAT_INTERVAL, new Object());
+	}
+	run();
+    }
+
+    /**
+     * Node action, controlled by probability, run method gets called by setTimeout on a loop
+     */ 
+    public void run() {
+	////////////////////////////////////////
+	// If we are the root node we must send out a heartbeat
+	if (nodeStatus == STATUS_ROOT) {
+	    NetworkMessage message = new NetworkMessage();
+	    message.setType(NetworkMessage.HEARTBEAT);
+	    message.senderNode = id;
+	    message.rootNode = id;
+	    message.treeLevel = 0;
+	    sendAll(message);
+	}
+	
+    }
+
 
     /**
      * Receive Messages
@@ -61,9 +94,11 @@ public class SpanningTree extends BasicAlgorithm{
 	// Cast Message to Network Message Object
 	NetworkMessage inputMessage = (NetworkMessage) message;
 	switch (inputMessage.getType()) {
+	////////////////////////////////////////
 	// Received Probe
 	case NetworkMessage.PROBE:
 	    break;
+	////////////////////////////////////////
 	// Attempting to Elect
 	case NetworkMessage.ELECTION:
 	    // If the New Root Node ID lower than our current, REPLACE
@@ -93,7 +128,14 @@ public class SpanningTree extends BasicAlgorithm{
 	    if (rootNode == id) {
 		nodeStatus = STATUS_ROOT;
 	    }
-
+	    break;
+	////////////////////////////////////////
+	// Case Heartbeat
+	case NetworkMessage.HEARTBEAT:
+	    break;
+	////////////////////////////////////////
+	// Default Case
+	default:
 	    break;
 	}
 
