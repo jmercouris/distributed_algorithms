@@ -42,8 +42,14 @@ public class SpanningTree extends BasicAlgorithm{
     /**
      * Receive Messages
      */
-    public void receive(int interf, Object message){
-
+    public void receive(int sendingInterface, Object message) {
+	// Cast Message to Network Message Object
+	NetworkMessage inputMessage = (NetworkMessage) message;
+	switch (inputMessage.getType()) {
+	// Received Probe
+	case NetworkMessage.PROBE:
+	    break;
+	}
     }
 
     ////////////////////////////////////////////////////////////////////////////////
