@@ -41,9 +41,9 @@
 
 \item[a)] What is the behavior of the algorithm in case of the following faults:
   \begin{itemize}
-  \item Failure or reintegration of nodes or links:
-  \item Corruption of local data structures:
-  \item Corruption or loss of messages:
+  \item Failure or reintegration of nodes or links: When a node or link fails, depending on where in the tree it fails can cause different behavior. Imagine that we have two semi-independent graphs that are linked by a single node. If this node fails, we now have two distinct graphs which will elect their own leaders when they hit their timeouts. This will lead to two independent systems. When they reconnect, there will be a conflict of leader, and they will reperform an election algorithm. In this way, the algorithm will always heal itself to have a logical leader, but depending on how the network breaks, it may lead to unexpected/unpreventable behavior.
+  \item Corruption of local data structures: If the local data structures storing information are corrupt, it is potentially worst than the node being knocked out altogether. It may send information about who the leader is incorrectly to children nodes, it may cause a perpetual `rehelealing` loop of the program to occur.
+  \item Corruption or loss of messages: When messages are corrupt or lost, the timeout in nodes will be triggered forcing a re-election. If messages eventually can make it through, then the network will heal itself into its' original state. The only downside will be that messages were sent with the intent of a reorganization of the span structure when it was not necessary. If it is shown that the timeout is persistent, or a consistent failure, the network will again heal itself by forming a new spanning tree to account for the unreachable set of nodes.
   \end{itemize}
 % In large dynamic systems, changes of the topologies are not an unusual behavior, but rather normal. What is the impact on the proposed algorithm?
 \item[b)] Text
