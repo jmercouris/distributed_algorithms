@@ -1,8 +1,18 @@
 [graph.random]
 
-teachnet.util.RandomRingGenerator
+# name of graph generator class
+# (only two implementations exist currently, another one is shown below)
 
-n=java.lang.Integer:17
+teachnet.util.RandomConnectedGraphGenerator
+
+# generator parameters in the form <name>=<class name>:<value>
+# supported classes are: java.lang.String, java.lang.Long, 
+#   java.lang.Integer, java.lang.Float, java.lang.Double
+
+# number of nodes in graph
+n=java.lang.Integer:3
+# number of edges in graph (must be >= n - 1)
+e=java.lang.Integer:3
 
 [network]
 
@@ -13,7 +23,7 @@ delay.max=java.lang.Double:2.0
 
 [stack.algorithms]
 
-Implementation
+SpanningTree
 
 [stack.configs]
 0.node.id=java.lang.String:$node.id

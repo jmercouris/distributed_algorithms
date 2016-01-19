@@ -3,9 +3,8 @@ import teachnet.algorithm.BasicAlgorithm;
 /**
 * Group 11
 * Dan Drewes, Manuela Hopp, John Mercouris, Malte Siemers
-* This class implements the Echo algorithm
 */
-public class Implementation extends BasicAlgorithm{
+public class SpanningTree extends BasicAlgorithm{
 
   boolean informed = false;
   boolean initiator = false;
