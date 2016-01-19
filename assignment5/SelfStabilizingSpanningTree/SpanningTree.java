@@ -8,11 +8,14 @@ import java.awt.Color;
 public class SpanningTree extends BasicAlgorithm{
 
     // Caption Next to Node
-    String caption = "lol";
+    String caption = "<0> → <0, 0, 0>";
     // Integer ID of the Node
     int id = 0;
-    // Color of the Node
-    Color color = Color.RED;
+    // Color of the Node - Default Black
+    Color defaultColor = Color.BLACK;
+    Color rootColor = Color.GREEN;
+    Color faultyColor = Color.RED;
+    Color color = defaultColor;
     // Relational Information
     int rootID = 0;
     int treeLevel = 0;
