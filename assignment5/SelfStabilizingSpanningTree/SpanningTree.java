@@ -67,11 +67,11 @@ public class SpanningTree extends BasicAlgorithm{
      */
     public void timeout(Object inputObject) {
 	// Randomly set Status to Failure
-	if (generator.nextInt(100) > 95) {
+	if (generator.nextInt(100) > 80) {
 	    nodeStatus = STATUS_FAULTY;
 	}
 	// Randomly set Status to Valid
-	if (generator.nextInt(100) > 95 && nodeStatus != STATUS_ROOT){
+	if (generator.nextInt(100) > 60 && nodeStatus != STATUS_ROOT){
 	    nodeStatus = STATUS_DEFAULT;
 	}
 	// If we are the root node we must set our heartbeat interval
@@ -103,8 +103,13 @@ public class SpanningTree extends BasicAlgorithm{
 	// We've encountered a timeout as not Root, this means
 	// messages have not reached us in enough time, the network
 	// is possibly broken!!!
-	if (nodeStatus != STATUS_ROOT && heartbeatReceived == false) {
+	if (nodeStatus != STATUS_ROOT && heartbeatReceived == false && nodeStatus != STATUS_FAULTY) {
 	    System.out.println("Timeout " + id);
+
+	    // Reinitialize Ourselves
+	    rootNode = id;
+	    nodeStatus = STATUS_ROOT;
+
 	    NetworkMessage message = new NetworkMessage();
 	    message.setType(NetworkMessage.ELECTION);
 	    message.senderNode = id;
@@ -166,15 +171,21 @@ public class SpanningTree extends BasicAlgorithm{
 	////////////////////////////////////////
 	// Case Heartbeat
 	case NetworkMessage.HEARTBEAT:
+	    // Setup Forwarding Message
+	    NetworkMessage tmp0message = new NetworkMessage();
+	    tmp0message.setType(NetworkMessage.HEARTBEAT);
+	    tmp0message.senderNode = id;
+	    tmp0message.rootNode = rootNode;
+	    heartbeatReceived = true;
+
 	    // Only act upon messages from your parent
 	    if (inputMessage.senderNode == parentNode) {
-		NetworkMessage tmp0message = new NetworkMessage();
-		tmp0message.setType(NetworkMessage.HEARTBEAT);
-		tmp0message.senderNode = id;
-		tmp0message.rootNode = rootNode;
-
 		sendAllExcept(tmp0message, sendingInterface);
-		heartbeatReceived = true;
+	    }
+	    if (inputMessage.rootNode < rootNode) {
+		rootNode = inputMessage.rootNode;
+		nodeStatus = STATUS_DEFAULT;
+		sendAllExcept(tmp0message, sendingInterface);
 	    }
 	    break;
 	////////////////////////////////////////
