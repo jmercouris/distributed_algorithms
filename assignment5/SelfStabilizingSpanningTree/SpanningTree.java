@@ -71,6 +71,14 @@ public class SpanningTree extends BasicAlgorithm{
 		rootNode = inputMessage.rootNode;
 		treeLevel = inputMessage.treeLevel + 1;
 		parentNode = inputMessage.senderNode;
+
+		// Forward Election to Future Nodes
+		NetworkMessage tmpMessage = new NetworkMessage();
+		tmpMessage.setType(NetworkMessage.ELECTION);
+		tmpMessage.senderNode = id;
+		tmpMessage.rootNode = rootNode;
+		tmpMessage.treeLevel = treeLevel;
+		sendAllExcept(tmpMessage, sendingInterface);
 	    }
 	    // If we have the same Root Node ID then we agree
 	    if (inputMessage.rootNode == rootNode) {

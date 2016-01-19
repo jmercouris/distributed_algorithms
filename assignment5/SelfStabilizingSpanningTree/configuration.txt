@@ -10,9 +10,9 @@ teachnet.util.RandomConnectedGraphGenerator
 #   java.lang.Integer, java.lang.Float, java.lang.Double
 
 # number of nodes in graph
-n=java.lang.Integer:3
+n=java.lang.Integer:10
 # number of edges in graph (must be >= n - 1)
-e=java.lang.Integer:3
+e=java.lang.Integer:10
 
 [network]
 
