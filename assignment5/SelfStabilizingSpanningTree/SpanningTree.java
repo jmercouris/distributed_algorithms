@@ -12,7 +12,7 @@ public class SpanningTree extends BasicAlgorithm{
     public static final int STATUS_DEFAULT = 0;
     public static final int STATUS_ROOT = 1;
     public static final int STATUS_FAULTY = 2;
-    public static final int HEARTBEAT_INTERVAL = 10;
+    public static final int HEARTBEAT_INTERVAL = 5;
 
     // Caption Next to Node
     String caption = "<0>→<0, 0, 0>";
@@ -66,6 +66,11 @@ public class SpanningTree extends BasicAlgorithm{
 	if (nodeStatus == STATUS_ROOT) {
 	    setTimeout(HEARTBEAT_INTERVAL, new Object());
 	}
+	// If we are NOT the root node, we set our timeout based on our
+	// level in the tree and the maximum message delay between tree levels
+	if (nodeStatus != STATUS_ROOT) {
+
+	}
 	run();
     }
 
@@ -81,6 +86,13 @@ public class SpanningTree extends BasicAlgorithm{
 	    message.senderNode = id;
 	    message.rootNode = id;
 	    sendAll(message);
+	}
+
+	// We've encountered a timeout as not Root, this means
+	// messages have not reached us in enough time, the network
+	// is possibly broken
+	if (nodeStatus != STATUS_ROOT) {
+	    
 	}
     }
 
