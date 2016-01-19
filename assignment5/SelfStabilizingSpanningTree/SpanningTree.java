@@ -9,19 +9,17 @@ public class SpanningTree extends BasicAlgorithm{
 
     // Caption Next to Node
     String caption = "<0>→<0, 0, 0>";
-    // Integer ID of the Node
-    int id = 0;
     // Color of the Node - Default Black
     Color defaultColor = Color.BLACK;
     Color rootColor = Color.GREEN;
     Color faultyColor = Color.RED;
     Color color = defaultColor;
+    
     // Relational Information
+    int id = 0;
     int rootID = 0;
     int treeLevel = 0;
     int parentNode = 0;
-    // Interface Coloring
-    int markInterface = -1;
 
     /**
      * Setup the algorithm
@@ -36,7 +34,12 @@ public class SpanningTree extends BasicAlgorithm{
      * initiates the algorithm
      */
     public void initiate() {
-	sendAll(new NetworkMessage());
+	NetworkMessage msg = new NetworkMessage();
+	msg.setType(NetworkMessage.ELECTION);
+	msg.senderNode = id;
+	msg.rootNode = id;
+	msg.treeLevel = 0;
+	sendAll(msg);
     }
 
     /**
@@ -49,7 +52,16 @@ public class SpanningTree extends BasicAlgorithm{
 	// Received Probe
 	case NetworkMessage.PROBE:
 	    break;
+	// Attempting to Elect
+	case NetworkMessage.ELECTION:
+
+
+
+	    break;
 	}
+
+	// Update Caption Everytime we Receive a Message Pending Changes
+	updateCaption();	
     }
 
     ////////////////////////////////////////////////////////////////////////////////

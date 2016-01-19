@@ -15,7 +15,12 @@ public class NetworkMessage {
     String stringMessage = "";
     
     int value = -1;
-    int type;
+
+    // Use Public Variables to avoid gratuitous use of getters and setters
+    public int type;
+    public int senderNode;
+    public int rootNode;
+    public int treeLevel;
 
 
 
@@ -23,6 +28,22 @@ public class NetworkMessage {
 
     }
 
+    public void setType(int inputType) {
+	type = inputType;
+	// Change the color of the message based on the type of message
+	switch (type) {
+	case PROBE:
+	    color = Color.BLACK;
+	    break;
+	case ELECTION:
+	    color = Color.GREEN;
+	    break;
+	default:
+	    color = Color.BLACK;
+	    break;
+	}
+    }
+    
     public int getType() {
 	return type;
     }
