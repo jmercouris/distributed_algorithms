@@ -8,6 +8,11 @@ import java.awt.Color;
  */
 public class SpanningTree extends BasicAlgorithm{
 
+    // Static Status
+    public static final int STATUS_DEFAULT = 0;
+    public static final int STATUS_ROOT = 1;
+    public static final int STATUS_FAULTY = 2;
+
     // Caption Next to Node
     String caption = "<0>→<0, 0, 0>";
     // Color of the Node - Default Black
@@ -15,7 +20,8 @@ public class SpanningTree extends BasicAlgorithm{
     Color rootColor = Color.GREEN;
     Color faultyColor = Color.RED;
     Color color = defaultColor;
-    
+    int nodeStatus = STATUS_DEFAULT;
+        
     // Relational Information
     int id = 0;
     int rootNode = 0;
@@ -31,7 +37,9 @@ public class SpanningTree extends BasicAlgorithm{
 	id = (Integer) config.get("node.id");
 	// Default to ourselves as root
 	rootNode = id;
+	nodeStatus = STATUS_ROOT;
 	updateCaption();
+	updateColorStatus();
     }
     
     /**
@@ -60,25 +68,54 @@ public class SpanningTree extends BasicAlgorithm{
 	case NetworkMessage.ELECTION:
 	    // If the New Root Node ID lower than our current, REPLACE
 	    if (inputMessage.rootNode < rootNode) {
-	
+		rootNode = inputMessage.rootNode;
+		treeLevel = inputMessage.treeLevel + 1;
+		parentNode = inputMessage.senderNode;
 	    }
 	    // If we have the same Root Node ID then we agree
 	    if (inputMessage.rootNode == rootNode) {
+		
+	    }
+	    // If we are lower than the Node advertised, Ignore
+	    if (inputMessage.rootNode > rootNode) {
+		
+	    }
+	    if (rootNode != id) {
+		nodeStatus = STATUS_DEFAULT;
 	    }
 
 	    break;
 	}
 
 	// Update Caption Everytime we Receive a Message Pending Changes
-	updateCaption();	
+	updateCaption();
+	updateColorStatus();
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Helper Functions Node Specific Behavior
     ////////////////////////////////////////////////////////////////////////////////
+    // Updates the caption of the node based upon its' current state
     public void updateCaption() {
 	caption = "<" + id + ">→" +
 	    "<" +  rootNode + ", " + treeLevel + ", " + parentNode + ">";
+    }
+    // Updates the color of the node based upon its' current state
+    public void updateColorStatus() {
+	switch (nodeStatus) {
+	case STATUS_DEFAULT:
+	    color = defaultColor;
+	    break;
+	case STATUS_ROOT:
+	    color = rootColor;
+	    break;
+	case STATUS_FAULTY:
+	    color = faultyColor;
+	    break;
+	default:
+	    color = defaultColor;
+	    break;
+	}
     }
     
     ////////////////////////////////////////////////////////////////////////////////
