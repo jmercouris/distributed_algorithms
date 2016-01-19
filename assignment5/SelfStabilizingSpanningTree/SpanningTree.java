@@ -8,7 +8,7 @@ import java.awt.Color;
 public class SpanningTree extends BasicAlgorithm{
 
     // Caption Next to Node
-    String caption = "<0> → <0, 0, 0>";
+    String caption = "<0>→<0, 0, 0>";
     // Integer ID of the Node
     int id = 0;
     // Color of the Node - Default Black
@@ -20,19 +20,27 @@ public class SpanningTree extends BasicAlgorithm{
     int rootID = 0;
     int treeLevel = 0;
     int parentNode = 0;
+    // Interface Coloring
+    int markInterface = -1;
 
     /**
-     * initiates the algorithm;
-     * sends an explorer message to all neighbors and sets informed and initiator to true
+     * Setup the algorithm
      */
-    public void initiate(){
+    public void setup(java.util.Map<String, Object> config)
+    {
+	id = (Integer) config.get("node.id");
 	updateCaption();
+    }
+    
+    /**
+     * initiates the algorithm
+     */
+    public void initiate() {
 	sendAll(new NetworkMessage());
     }
 
     /**
-     * sends out explorer messages to all neighbors if not yet informed
-     * sends echo to activator if all neighbors are informed
+     * Receive Messages
      */
     public void receive(int interf, Object message){
 
@@ -42,7 +50,7 @@ public class SpanningTree extends BasicAlgorithm{
     // Helper Functions Node Specific Behavior
     ////////////////////////////////////////////////////////////////////////////////
     public void updateCaption() {
-	caption = "<" + id + "> →" +
+	caption = "<" + id + ">→" +
 	    "<" +  rootID + ", " + treeLevel + ", " + parentNode + ">";
     }
     
