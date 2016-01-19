@@ -13,14 +13,17 @@ public class SpanningTree extends BasicAlgorithm{
     int id = 0;
     // Color of the Node
     Color color = Color.RED;
-   
+    // Relational Information
+    int rootID = 0;
+    int treeLevel = 0;
+    int parentNode = 0;
 
     /**
      * initiates the algorithm;
      * sends an explorer message to all neighbors and sets informed and initiator to true
      */
     public void initiate(){
-
+	updateCaption();
     }
 
     /**
@@ -32,7 +35,15 @@ public class SpanningTree extends BasicAlgorithm{
     }
 
     ////////////////////////////////////////////////////////////////////////////////
-    // Helper Functions
+    // Helper Functions Node Specific Behavior
+    ////////////////////////////////////////////////////////////////////////////////
+    public void updateCaption() {
+	caption = "<" + id + "> →" +
+	    "<" +  rootID + ", " + treeLevel + ", " + parentNode + ">";
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////
+    // Helper Functions Message Forwarding
     ////////////////////////////////////////////////////////////////////////////////
     // Convenience Method to send a message to all neighbors
     public void sendAll(NetworkMessage inputMessage) { 
