@@ -2,7 +2,7 @@
 
 teachnet.util.FullyMeshedGraphGenerator
 
-n=java.lang.Integer:4
+n=java.lang.Integer:10
 
 [network]
 
@@ -21,7 +21,7 @@ Byzantine
 
 0.node.id=java.lang.String:$node.id
 0.network.size=java.lang.String:$network.size
-0.m=java.lang.Integer:1
+0.m=java.lang.Integer:3
 0.commanderIsFaulty=java.lang.Integer:0
 0.default_value=java.lang.Integer:0
 
